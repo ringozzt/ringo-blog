@@ -1,0 +1,2 @@
+# ringo-blog
+learning everyday
