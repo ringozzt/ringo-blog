@@ -1,10 +1,14 @@
+---
+title: 学习资料库
+author: ringo
+date: '2021-11-2'
+---
+
 # 学习资料库
 
-### 😀**欢迎客官前来学习～**
+### 😀 欢迎客官前来学习～
 
-### 前端的知识体系如此庞大，作者感慨到越来越学不动了。但是还是要鼓足干劲，力争上游，撸起袖子加油干！学而不思则罔，为了更好地沉淀学到的知识（避免遗忘），特地把学习过程中的一些笔记和思考上传到 blog，也希望能对路过的你有所帮助！
-
-GithubPages: <a target="_blank" href="https://ringozzt.github.io/ringo-blog/"> BLOG </a>
+GithubPages: <a target="_blank" href="https://ringozzt.github.io/ringo-blog/">Ringo の 知识库</a>
 
 > 如果觉得文档对你有帮助，不妨<a target="_blank" href="https://github.com/ringozzt/ringo-blog">点一个 star</a>鼓励一下作者~
 
@@ -20,7 +24,13 @@ GithubPages: <a target="_blank" href="https://ringozzt.github.io/ringo-blog/"> B
 
 - 计算机网络
 
+  - http/http2/https
+
+  - TCP/IP/UDP
+
 - 浏览器
+
+- 前端缓存
 
 ### 框架 🚲
 
