@@ -51,7 +51,7 @@ module.exports = {
         children: [
           { title: 'JS编程基础', path: '/js/base' },
           { title: 'ES6 基本语法', path: '/js/es6' },
-          { title: '迭代器和生成器', path: '/js/generator' },
+          { title: '异步编程方案', path: '/js/generator' },
           // { title: 'BOM', path: '/basis/es6' },
           // { title: '事件流，事件捕获，冒泡', path: '/basis/es6' },
         ],
