@@ -1,3 +1,5 @@
+# 异步方案
+
 # 迭代器和生成器
 
 ## 迭代器（Iterator）
@@ -230,9 +232,11 @@ for (const item of obj) {
 }
 ```
 
-# await async
+---
 
-异步编程终极方案，用同步的方式，执行异步操作。
+## await async
+
+### 异步编程终极方案，用同步的方式，执行异步操作。
 
 在 async 函数中，await 规定了异步操作只能一个一个排队执行，从而达到用同步的方式，执行异步操作的效果。
 
@@ -241,7 +245,19 @@ for (const item of obj) {
 await 后如果跟随的不是 Promise，可能会造成同步触发的效果。
 
 ```javascript
-function request(num) { // 去掉Promise  setTimeout(() => {    console.log(num * 2)  }, 1000)}async function fn() {  await request(1) // 2  await request(2) // 4  // 1秒后执行完  同时输出}fn()
+function request(num) {
+  // 去掉Promise
+  setTimeout(() => {
+    console.log(num * 2);
+  }, 1000);
+}
+
+async function fn() {
+  await request(1); // 2
+  await request(2); // 4
+  // 1秒后执行完  同时输出
+}
+fn();
 ```
 
 总结：
@@ -255,19 +271,84 @@ function request(num) { // 去掉Promise  setTimeout(() => {    console.log(num 
 ## generator 实现 async
 
 ```javascript
-function generatorToAsync(generatorFn) {  return function() {    const gen = generatorFn.apply(this, arguments) // gen有可能传参    // 返回一个Promise    return new Promise((resolve, reject) => {      function go(key, arg) {        let res        try {          res = gen[key](arg) // 这里有可能会执行返回reject状态的Promise        } catch (error) {          return reject(error) // 报错的话会走catch，直接reject        }        // 解构获得value和done        const { value, done } = res        if (done) {          // 如果done为true，说明走完了，进行resolve(value)          return resolve(value)        } else {          // 如果done为false，说明没走完，还得继续走          // value有可能是：常量，Promise，Promise有可能是成功或者失败          return Promise.resolve(value).then(val => go('next', val), err => go('throw', err))        }      }      go("next") // 第一次执行    })  }}const asyncFn = generatorToAsync(gen)asyncFn().then(res => console.log(res))
+function generatorToAsync(generatorFn) {
+  return function () {
+    const gen = generatorFn.apply(this, arguments); // gen有可能传参
+
+    // 返回一个Promise
+    return new Promise((resolve, reject) => {
+      function go(key, arg) {
+        let res;
+        try {
+          res = gen[key](arg); // 这里有可能会执行返回reject状态的Promise
+        } catch (error) {
+          return reject(error); // 报错的话会走catch，直接reject
+        }
+
+        // 解构获得value和done
+        const { value, done } = res;
+        if (done) {
+          // 如果done为true，说明走完了，进行resolve(value)
+          return resolve(value);
+        } else {
+          // 如果done为false，说明没走完，还得继续走
+
+          // value有可能是：常量，Promise，Promise有可能是成功或者失败
+          return Promise.resolve(value).then(
+            (val) => go('next', val),
+            (err) => go('throw', err)
+          );
+        }
+      }
+
+      go('next'); // 第一次执行
+    });
+  };
+}
+
+const asyncFn = generatorToAsync(gen);
+
+asyncFn().then((res) => console.log(res));
 ```
 
-测试对比一下：
+## 测试对比一下：
+
+### async/await 版本
 
 ```javascript
-// async/awaitasync function asyncFn() {  const num1 = await fn(1)  console.log(num1) // 2  const num2 = await fn(num1)  console.log(num2) // 4  const num3 = await fn(num2)  console.log(num3) // 8  return num3}const asyncRes = asyncFn()console.log(asyncRes) // PromiseasyncRes.then(res => console.log(res)) // 8
+async function asyncFn() {
+  const num1 = await fn(1);
+  console.log(num1); // 2
+  const num2 = await fn(num1);
+  console.log(num2); // 4
+  const num3 = await fn(num2);
+  console.log(num3); // 8
+  return num3;
+}
+const asyncRes = asyncFn();
+console.log(asyncRes); // Promise
+asyncRes.then((res) => console.log(res)); // 8
 ```
 
+### 自执行 generator
+
 ```JavaScript
-// 自执行generatorfunction* gen() {  const num1 = yield fn(1)  console.log(num1) // 2  const num2 = yield fn(num1)  console.log(num2) // 4  const num3 = yield fn(num2)  console.log(num3) // 8  return num3}const genToAsync = generatorToAsync(gen)const asyncRes = genToAsync()console.log(asyncRes) // PromiseasyncRes.then(res => console.log(res)) // 8
+function* gen() {
+  const num1 = yield fn(1)
+  console.log(num1) // 2
+  const num2 = yield fn(num1)
+  console.log(num2) // 4
+  const num3 = yield fn(num2)
+  console.log(num3) // 8
+  return num3
+}
+
+const genToAsync = generatorToAsync(gen)
+const asyncRes = genToAsync()
+console.log(asyncRes) // Promise
+asyncRes.then(res => console.log(res)) // 8
 ```
 
 ##### 参考文章：
 
-[深入理解async]: https://juejin.cn/post/7007031572238958629
+- [深入理解 async](https://juejin.cn/post/7007031572238958629)
