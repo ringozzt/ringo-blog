@@ -1,12 +1,140 @@
-# CSS
+# CSS 常用布局
 
-### 重绘重排性能优化
+## 清除浮动
 
-##### 渲染流水线：
+- overflow:hidden 元素有阴影或存在下来菜单时会被截断，比较局限
 
-生成 dom 树->计算样式->生成布局树->建图层树->绘制列表
+- clear:both 原理 clear:both 左右两边不允许出现浮动
 
-### 重绘(reflow)、重排(repaint)定义
+  ```css
+  .clearfix {
+    zoom: 1; // zoom可以缩放元素，设置1为了兼容ie
+  }
+  .clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  // https://codepen.io/bulandent/pen/LYbOvOa
+  ```
+
+## 长文本处理
+
+- 字符超出部分换行
+
+  overflow-wrap: break
+
+- 字符超出位置使用连字符
+
+  hyphens: auto
+
+- 单行超出省略
+
+  white-space: nowrap;
+
+  overflow:hidden;
+
+  text-overflow: ellipsis;
+
+- 多行超出省略
+
+  overflow:hidden;
+
+  text-overflow: ellipsis;
+
+## 垂直居中
+
+### 单行文本、inline、inline-block 情况
+
+- text-align:center;
+
+  padding: 10px 0;
+
+- text-align:center;
+
+  height: 100px;
+
+  line-height:100px;
+
+### 定宽高的情况
+
+- absolute+负 margin
+- absolute+0 位移+margin auto
+- absolute+calc(50%-50px)
+
+### 不定宽高的情况
+
+- absolute+transform:translate(-50%,-50%)
+
+- 父 flex
+
+  justify-content: center
+
+  align-items:center
+
+- 父 display:grid
+
+  子 justify-self：center
+
+  align-self：center
+
+- 父 display:table-cell
+
+  vertical-align:middle
+
+  text-align:center
+
+  子 display:inline-block
+
+## 两栏布局
+
+- `aside`:
+
+  float:left
+
+  width:200px
+
+  `main`:
+
+  overflow:hidden
+
+- float+margin
+
+- flex+flex:1 原理 flex-grow1flex-shrink1flex-basis0
+
+- grid grid-template-columns:200px 1fr
+
+## 三栏布局
+
+- 圣杯布局
+
+  - 三浮动，侧边栏相对定位移回来
+
+- 双飞翼
+
+  - 三浮动，侧边栏 margin 回来
+
+- float+overflow（BFC）
+
+  - main：overflow：hidden
+  - aside width+float
+
+- flex+flex1(flex:1 1 0% 后两位固定，赋值也是给第一位)
+- grid+grid-template-columns：200px 1fr 200px
+
+## CSS 权重
+
+## CSS 盒模型
+
+---
+
+# 重绘重排性能优化
+
+## 渲染流水线：
+
+- 生成 dom 树->计算样式->生成布局树->建图层树->绘制列表
+
+## 重绘(reflow)、重排(repaint)定义
 
 - 定义：重排必然引起重绘，反之不会
 
@@ -123,7 +251,7 @@
     }
     ```
 
-# 伪类和伪元素
+## 伪类和伪元素
 
 #### 伪元素在 css3 之前就存在，之后才分为伪类和伪元素
 
@@ -171,131 +299,3 @@
 - ::placeholder 输入框里占位符的颜色
 - ::before 前缀
 - ::after 后缀
-
-# CSS
-
-### 清除浮动
-
-- overflow:hidden 元素有阴影或存在下来菜单时会被截断，比较局限
-
-- clear:both 原理 clear:both 左右两边不允许出现浮动
-
-  ```css
-  .clearfix {
-    zoom: 1; // zoom可以缩放元素，设置1为了兼容ie
-  }
-  .clearfix::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  // https://codepen.io/bulandent/pen/LYbOvOa
-  ```
-
-### 长文本处理
-
-- 字符超出部分换行
-
-  overflow-wrap: break
-
-- 字符超出位置使用连字符
-
-  hyphens: auto
-
-- 单行超出省略
-
-  white-space: nowrap;
-
-  overflow:hidden;
-
-  text-overflow: ellipsis;
-
-- 多行超出省略
-
-  overflow:hidden;
-
-  text-overflow: ellipsis;
-
-### 垂直居中
-
-单行文本、inline、inline-block
-
-- text-align:center;
-
-  padding: 10px 0;
-
-- text-align:center;
-
-  height: 100px;
-
-  line-height:100px;
-
-### 定宽高
-
-- absolute+负 margin
-- absolute+0 位移+margin auto
-- absolute+calc(50%-50px)
-
-### 不定宽高
-
-- absolute+transform:translate(-50%,-50%)
-
-- 父 flex
-
-  justify-content: center
-
-  align-items:center
-
-- 父 display:grid
-
-  子 justify-self：center
-
-  align-self：center
-
-- 父 display:table-cell
-
-  vertical-align:middle
-
-  text-align:center
-
-  子 display:inline-block
-
-### 两栏布局
-
-- aside:
-
-  float:left
-
-  width:200px
-
-  main:
-
-  overflow:hidden
-
-- float+margin
-
-- flex+flex:1 原理 flex-grow1flex-shrink1flex-basis0
-
-- grid grid-template-columns:200px 1fr
-
-### 三栏布局
-
-- 圣杯布局
-
-  - 三浮动，侧边栏相对定位移回来
-
-- 双飞翼
-
-  - 三浮动，侧边栏 margin 回来
-
-- float+overflow（BFC）
-
-  - main：overflow：hidden
-  - aside width+float
-
-- flex+flex1(flex:1 1 0% 后两位固定，赋值也是给第一位)
-- grid+grid-template-columns：200px 1fr 200px
-
-### CSS 权重
-
-### CSS 盒模型
