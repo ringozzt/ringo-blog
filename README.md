@@ -1,2 +1,3 @@
 # ringo-blog
-learning everyday
+Learning everyday
+Learning makes me happy
