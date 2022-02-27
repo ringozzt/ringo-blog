@@ -61,6 +61,7 @@ module.exports = {
           { title: '异步编程方案', path: '/js/generator' },
           { title: 'JS之类型判断', path: '/js/type' },
           { title: '事件流', path: '/js/evt-agent' },
+          { title: '数组方法盘点', path: '/js/arr' },
           // { title: 'BOM', path: '/basis/es6' },
           // { title: '事件流，事件捕获，冒泡', path: '/basis/es6' },
         ],
