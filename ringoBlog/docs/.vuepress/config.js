@@ -34,15 +34,22 @@ module.exports = {
       },
       {
         title: 'HTML',
-        path: '/html/html_semantic',
+        path: '/html/html-detail',
         collapsable: false, // 不折叠
-        children: [{ title: '语义化', path: '/html/html_semantic' }],
+        children: [
+          { title: '盘点html中的细节', path: '/html/html-detail' },
+          { title: '细看语义化', path: '/html/html-semantic' },
+        ],
       },
       {
         title: 'CSS基础',
         path: '/css/layout',
         collapsable: false, // 不折叠
-        children: [{ title: '常见布局', path: '/css/layout' }],
+        children: [
+          { title: '常见布局', path: '/css/layout' },
+          { title: '重绘重排', path: '/css/reflow' },
+          { title: '伪类和伪元素', path: '/css/pseudo' },
+        ],
       },
       {
         title: 'JavaScript',
@@ -52,17 +59,21 @@ module.exports = {
           { title: 'JS编程基础', path: '/js/base' },
           { title: 'ES6 基本语法', path: '/js/es6' },
           { title: '异步编程方案', path: '/js/generator' },
-          { title: 'JS之类型编程', path: '/js/type' },
+          { title: 'JS之类型判断', path: '/js/type' },
+          { title: '事件流', path: '/js/evt-agent' },
           // { title: 'BOM', path: '/basis/es6' },
           // { title: '事件流，事件捕获，冒泡', path: '/basis/es6' },
         ],
       },
       {
         title: '浏览器',
-        path: '/base/fe_cache',
+        path: '/base/fe-cache',
         collapsable: false, // 不折叠
         children: [
-          { title: '前端缓存', path: '/base/fe_cache' },
+          { title: '进程、线程、协程', path: '/base/process' },
+          { title: '从输入URL到呈现页面', path: '/base/from-url' },
+          { title: '前端缓存和鉴权', path: '/base/fe-cache' },
+          { title: '跨域问题', path: '/base/cross-origin' },
           { title: 'Webview', path: '/base/webview' },
           { title: '性能优化', path: '/advance/optimize' },
         ],
@@ -81,9 +92,9 @@ module.exports = {
       },
       {
         title: '工程化基础',
-        path: '/project/fe_module',
+        path: '/project/fe-module',
         collapsable: false, // 不折叠
-        children: [{ title: '模块化基础', path: '/project/fe_module' }],
+        children: [{ title: '模块化基础', path: '/project/fe-module' }],
       },
       {
         title: '日报&周报',

@@ -13,17 +13,21 @@ GithubPages: <a target="_blank" href="https://ringozzt.github.io/ringo-blog/"> B
 
 ### 基础三板斧 🪓
 
-- Html 语义化
+- Html5 新特性、语义化
 
-- CSS 布局基础
+- CSS 布局基础、flex 布局、grid 布局
+
+  - 多见识、多试验、才能熟练运用
 
 - JavaScript 点点滴滴
+
+  - 推荐：红宝书 yyds
 
 ### 计算机基础 🔑
 
 - 计算机网络
 
-- 浏览器
+- 浏览器原理
 
 ### 框架 🚲
 
@@ -35,15 +39,19 @@ GithubPages: <a target="_blank" href="https://ringozzt.github.io/ringo-blog/"> B
 
 - 模块化基础
 - webpack 基本配置
+- 包体积优化、HMR 优化
+- ESbuild、vite
 
 ### 前端进阶 🏍
 
-- 性能优化
+- 首屏时间、极致性能优化
 
-- 手写各种 API
+- 常见算法、手写各种 API
 
 ### 工作积累 📌
 
-- 工作の日报 周报
+- 工作の日报、周报
+- 每周技术分享-学习笔记
+- 团建
 
-##### 文档若有错误或任何意见，欢迎提<a target="_blank" href="https://github.com/ringozzt/ringo-blog/issues">issue</a>，期待交流~
+### 文档若有错误或任何意见，欢迎提<a target="_blank" href="https://github.com/ringozzt/ringo-blog/issues">issue</a>，期待交流~

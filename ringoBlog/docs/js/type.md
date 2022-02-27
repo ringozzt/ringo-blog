@@ -74,6 +74,6 @@ arr.__proto__ = function () {};
 console.log(Object.prototype.toString.call(arr) === '[object Array]'); // true
 ```
 
-所以，使用 Object.prototype.toString.call()能够**最准确地判断变量类型**。
+### 所以，使用 Object.prototype.toString.call()能够**最准确地判断变量类型**。
 
 开发中大家可以结合实际需求选择合适的判断方法。
