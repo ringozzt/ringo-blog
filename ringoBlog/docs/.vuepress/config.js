@@ -38,7 +38,7 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: '盘点html中的细节', path: '/html/html-detail' },
-          { title: '细看语义化', path: '/html/html-semantic' },
+          { title: '浅聊语义化', path: '/html/html-semantic' },
         ],
       },
       {
@@ -57,6 +57,7 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: 'JS编程基础', path: '/js/base' },
+          { title: 'JS编程进阶', path: '/js/js-senior' },
           { title: 'ES6 基本语法', path: '/js/es6' },
           { title: '异步编程方案', path: '/js/generator' },
           { title: 'JS之类型判断', path: '/js/type' },
@@ -80,6 +81,21 @@ module.exports = {
         ],
       },
       {
+        title: '框架',
+        path: '/mvvm/diff',
+        collapsable: false, // 不折叠
+        children: [{ title: '数据驱动视图', path: '/mvvm/diff' }],
+      },
+      {
+        title: '工程化基础',
+        path: '/project/fe-module',
+        collapsable: false, // 不折叠
+        children: [
+          { title: '模块化基础', path: '/project/fe-module' },
+          { title: 'webpack入门', path: '/project/webpack-base' },
+        ],
+      },
+      {
         title: '计算机大观园',
         path: '/base/git',
         collapsable: false, // 不折叠
@@ -90,12 +106,6 @@ module.exports = {
           { title: '云原生概念', path: '/cloud/cloud-native' },
           { title: 'Docker入门', path: '/cloud/docker' },
         ],
-      },
-      {
-        title: '工程化基础',
-        path: '/project/fe-module',
-        collapsable: false, // 不折叠
-        children: [{ title: '模块化基础', path: '/project/fe-module' }],
       },
       {
         title: '日报&周报',

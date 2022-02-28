@@ -13,7 +13,10 @@
 
 **DOM2 级事件**中规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。
 
-addEventLister 给出了第三个参数同时支持冒泡与捕获。
+addEventLister 给出了第三个参数用来支持冒泡与捕获:
+
+- false：默认，代表冒泡时绑定
+- true：代表捕获时绑定
 
 ## addEventListener 的第三个参数
 
@@ -30,6 +33,11 @@ addEventLister 给出了第三个参数同时支持冒泡与捕获。
 | event      | 必须。字符串，指定事件名。 **注意:** 不要使用 "on" 前缀。 例如，使用 "click" ,而不是使用 "onclick"。 **提示：** 所有 HTML DOM 事件，可以查看我们完整的 [HTML DOM Event 对象参考手册](https://www.runoob.com/jsref/dom-obj-event.html)。 |
 | function   | 必须。指定要事件触发时执行的函数。 当事件对象会作为第一个参数传入函数。 事件对象的类型取决于特定的事件。例如， "click" 事件属于 MouseEvent(鼠标事件) 对象。                                                                             |
 | useCapture | 可选。布尔值，指定事件是否在捕获或冒泡阶段执行。 可能值:true - 事件句柄在捕获阶段执行（即在事件捕获阶段调用处理函数）false - 默认，事件句柄在冒泡阶段执行（即表示在事件冒泡的阶段调用事件处理函数）                                     |
+
+## e.target 和 e.currentTarget
+
+- `e.target`：**触发**事件的元素
+- `e.currentTarget`：**绑定**事件的元素
 
 ## 事件委托（事件代理）
 
