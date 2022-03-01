@@ -12,9 +12,7 @@
 
 - IOS：
 
-  UIWebView-jscore
-
-  ->WKwebview-messageHandler
+  UIWebView-jscore -> WKwebview-messageHandler
 
 - Android：
 
