@@ -192,7 +192,7 @@ Tree Shaking 较早前由 Rich Harris 在 Rollup 中率先实现，Webpack 自 2
   - usedExports 设置为 true 时，可删除的代码块会有一段注释：unused harmony export mul，就是标记这段代码未使用，那么 Terser 就会在优化时删除这段代码。
 - sideEffects：跳过整个模块/文件，直接查看跳过该文件是否导致副作用
   - 用于告知 webpack compiler 哪些模块是有副作用的
-  - 配置为 false，代表默认使用 usedExports 删除未使用到的 exports
+  - 配置为 false，代表此模块无副作用，可以使用 usedExports 删除未使用到的 exports
   - 模块导入后是否被使用、未使用到的直接删除
 
 ### 在生产环境中，可以这样配置

@@ -47,6 +47,7 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: '常见布局', path: '/css/layout' },
+          { title: '细节盘点', path: '/css/qa' },
           { title: '重绘重排', path: '/css/reflow' },
           { title: '伪类和伪元素', path: '/css/pseudo' },
         ],
