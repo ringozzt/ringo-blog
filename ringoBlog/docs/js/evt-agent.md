@@ -36,8 +36,9 @@ addEventLister 给出了第三个参数用来支持冒泡与捕获:
 
 ## e.target 和 e.currentTarget
 
-- `e.target`：**触发**事件的元素
-- `e.currentTarget`：**绑定**事件的元素
+- `e.target`：**触发**事件的元素，在一次事件流中是不会变的
+- `e.currentTarget`：**绑定**事件的元素，在一次事件流中的传递路径，捕获路径和冒泡路径相反
+- [e.target 和 e.currentTarget 的区别](https://juejin.cn/post/7069569810220187678)
 
 ## 事件委托（事件代理）
 

@@ -1,16 +1,16 @@
 module.exports = {
-  head: [['link', { rel: 'icon', href: './favicon.ico' }]],
   title: `noob BLOG`,
   description: 'ringo的搬砖记录',
-  theme: 'reco',
-  // 路径名为 "/<REPO>/"
+  head: [['link', { rel: 'icon', href: './favicon.ico' }]],
   base: '/ringo-blog/',
   locales: {
     '/': {
       lang: 'zh-CN',
     },
   },
+  theme: 'reco',
   themeConfig: {
+    type: 'blog',
     subSidebar: 'auto',
     nav: [
       { text: '首页', link: '/' },
@@ -60,12 +60,13 @@ module.exports = {
           { title: 'JS编程基础', path: '/js/base' },
           { title: 'JS编程进阶', path: '/js/js-senior' },
           { title: 'ES6 基本语法', path: '/js/es6' },
-          { title: '异步编程方案', path: '/js/generator' },
-          { title: 'JS之类型判断', path: '/js/type' },
+          { title: '关于Promise', path: '/js/promise' },
+          { title: '异步编程方案', path: '/js/async' },
+          { title: '类型判断', path: '/js/type' },
           { title: '事件流', path: '/js/evt-agent' },
-          { title: '数组方法盘点', path: '/js/arr' },
+          { title: '关于数组方法', path: '/js/arr' },
+          { title: '一行代码实现', path: '/js/single-line-util' },
           // { title: 'BOM', path: '/basis/es6' },
-          // { title: '事件流，事件捕获，冒泡', path: '/basis/es6' },
         ],
       },
       {
@@ -74,18 +75,34 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: '进程、线程、协程', path: '/base/process' },
-          { title: '从输入URL到呈现页面', path: '/base/from-url' },
           { title: '前端缓存和鉴权', path: '/base/fe-cache' },
-          { title: '跨域问题', path: '/base/cross-origin' },
-          { title: 'Webview', path: '/base/webview' },
+          { title: '从输入URL到呈现页面', path: '/browser/from-url' },
+          { title: '跨域问题', path: '/browser/cross-origin' },
+          { title: 'Webview', path: '/browser/webview' },
+          { title: '浏览器的5种观察者', path: '/browser/observer' },
+        ],
+      },
+      {
+        title: '前端进阶',
+        path: '/advance/optimize',
+        collapsable: false, // 不折叠
+        children: [
+          { title: '长列表', path: '/advance/longlist' },
           { title: '性能优化', path: '/advance/optimize' },
+          { title: 'WebSocket', path: '/advance/ws' },
         ],
       },
       {
         title: '框架',
         path: '/mvvm/diff',
         collapsable: false, // 不折叠
-        children: [{ title: '数据驱动视图', path: '/mvvm/diff' }],
+        children: [
+          { title: '数据驱动视图', path: '/mvvm/diff' },
+          { title: 'React Fiber模型', path: '/mvvm/fiber' },
+          { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
+          { title: 'React源码学习', path: '/mvvm/react-source' },
+          { title: '第一次技术分享', path: '/mvvm/share1' },
+        ],
       },
       {
         title: '工程化基础',
@@ -93,6 +110,7 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: '模块化基础', path: '/project/fe-module' },
+          { title: '浅聊package.json', path: '/project/package.json' },
           { title: 'webpack入门', path: '/project/webpack-base' },
         ],
       },
@@ -106,6 +124,16 @@ module.exports = {
           { title: 'svg和canvas', path: '/base/svg-canvas' },
           { title: '云原生概念', path: '/cloud/cloud-native' },
           { title: 'Docker入门', path: '/cloud/docker' },
+        ],
+      },
+      {
+        title: '实用工具',
+        path: '/utils/caniuse',
+        collapsable: false, // 不折叠
+        children: [
+          { title: 'CanIUse', path: '/utils/caniuse' },
+          { title: 'base64转换', path: '/utils/show-base64' },
+          { title: '可视化正则', path: '/utils/show-regexp' },
         ],
       },
       {

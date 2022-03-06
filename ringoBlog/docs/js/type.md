@@ -78,4 +78,10 @@ console.log(Object.prototype.toString.call(arr) === '[object Array]'); // true
 
 所以，使用 Object.prototype.toString.call()能够**最准确地判断变量类型**。
 
+## isNaN
+
+[NaN 的前世今生](https://juejin.cn/post/6844903507368083469)
+
+---
+
 开发中大家可以结合实际需求选择合适的判断方法。

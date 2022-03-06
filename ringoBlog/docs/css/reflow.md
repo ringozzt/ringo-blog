@@ -120,3 +120,6 @@
       transform: translate3d(10px, 10px, 0);
     }
     ```
+
+  - will-change: transform 和 translate3d 强制开启 GPU 不同，will-change 用于提前通知浏览器元素将要做什么动画，让浏览器提前准备合适的优化设置
+    [will-change 介绍](https://juejin.cn/post/6844904111842787341)
