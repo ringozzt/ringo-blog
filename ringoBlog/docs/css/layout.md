@@ -22,7 +22,10 @@
 
 ### 不定宽高的情况
 
-- absolute+transform:translate(-50%,-50%)
+- absolute
+  top:50%
+  left:50%
+  transform:translate(-50%,-50%)
 
 - 父 flex
 

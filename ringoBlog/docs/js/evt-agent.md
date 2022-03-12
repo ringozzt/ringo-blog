@@ -73,7 +73,7 @@ for (var i = 0; i < li.length; i++) {
 
 存在问题：
 
-- 给每一个列表都绑定事件，消耗内存
+- 给每一个列表项都绑定事件，消耗内存
 - 当有动态添加的元素时，需要重新给元素绑定事件
 
 ### 丐版事件委托
@@ -93,10 +93,11 @@ ul.addEventListener('click', function (e) {
 那下面我们来看一下正确的事件委托应该怎么写：
 
 ```js
+/*element:容器, eventType:事件类型, selector:指定元素, fn:触发的函数  */
 function delegate(element, eventType, selector, fn) {
      element.addEventListener(eventType, e => {
        let el = e.target
-       // 递归查询事件元素的委托元素
+       // while 递归查询 触发事件元素的委托元素，冒泡到自身还没找到就 break
        while (!el.matches(selector)) {
          if (element === el) {
            el = null

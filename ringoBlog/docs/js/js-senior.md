@@ -132,6 +132,8 @@ let 使 JS 发生革命性的变化，让 JS 有函数作用域变为了块级�
 
 JavaScript 对象通过`__proto__` 指向父类构造函数的原型对象，父类的原型对象又通过`__proto__`指向他的父类原型对象，就这样直到指向 Object 对象为止，Object 的原型对象的`__proto__`指向 null，这样就形成了一个原型指向的链条, 即原型链。
 
+![moliy_prototype_chain](https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg)
+
 ### JS 面向对象之寄生组合式继承
 
 ```js

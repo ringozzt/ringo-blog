@@ -7,6 +7,22 @@
 
 ## 选择器权重
 
+内联样式 > ID 选择器 > 类选择器 = 属性选择器 = 伪类选择器 > 标签选择器 = 伪元素选择器
+
+ID 选择器， 如 #id{}
+
+类选择器， 如 .class{}
+
+属性选择器， 如 a[href="segmentfault.com"]{}
+
+伪类选择器， 如 :hover{}
+
+伪元素选择器， 如 ::before{}
+
+标签选择器， 如 span{}
+
+通配选择器， 如 \*{}
+
 以下三种类型的选择器依次下降
 
 1. `id` 选择器，如 `#app`
@@ -65,11 +81,11 @@
 
 - 字符超出部分换行
 
-  overflow-wrap: break
+  word-wrap: break-word;
 
 - 字符超出位置使用连字符
 
-  hyphens: auto
+  hyphens: auto;
 
 - 单行超出省略
 

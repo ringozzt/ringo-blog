@@ -1,12 +1,17 @@
 # Promise
 
+Promise 的本质是一个有限状态机
+
 ## 方法备忘
+
+[MDN-Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+[MDN-使用 Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
 
 ### Promise.all
 
-返回一个Promise实例，入参数组中的实例都成功时resolve结果数组；只要有一个失败，则回调失败
+返回一个 Promise 实例，入参数组中的实例都成功时 resolve 结果数组；只要有一个失败，则回调失败
 
-**场景：结果相互依赖，都成功才算成功；任何一个请求reject都会失败**
+**场景：结果相互依赖，都成功才算成功；任何一个请求 reject 都会失败**
 
 ```js
 function all(promises) {
@@ -30,97 +35,87 @@ function all(promises) {
 }
 ```
 
-
-
 ### Promise.allSettled
 
-返回一个数组，入参数组中所有的Promise状态都确定后才回调成功，返回数组包含每个实例的结果
+返回一个数组，入参数组中所有的 Promise 状态都确定后才回调成功，返回数组包含每个实例的结果
 
 **场景：无论成功失败；期望知道每个实例的结果**
 
 ```js
 function allSettled(promises) {
-    return new Promise((resolve) => {
-      const results = [];
-      promises.forEach((promise) => {
-        promise.then(
-          (res) => {
-            results.push({ status: PROMISE_STATUS_FULFILLED, value: res });
-            if (results.length === promises.length) {
-              resolve(results);
-            }
-          },
-          (err) => {
-            results.push({ status: PROMISE_STATUS_REJECTED, value: err });
-            if (results.length === promises.length) {
-              resolve(results);
-            }
+  return new Promise((resolve) => {
+    const results = [];
+    promises.forEach((promise) => {
+      promise.then(
+        (res) => {
+          results.push({ status: PROMISE_STATUS_FULFILLED, value: res });
+          if (results.length === promises.length) {
+            resolve(results);
           }
-        );
-      });
+        },
+        (err) => {
+          results.push({ status: PROMISE_STATUS_REJECTED, value: err });
+          if (results.length === promises.length) {
+            resolve(results);
+          }
+        }
+      );
     });
-  }
+  });
+}
 ```
-
-
 
 ### Promise.race
 
-返回一个Promise实例，入参数组中有一个的Promise状态返回直接回调成功，返回该实例的状态
+返回一个 Promise 实例，入参数组中有一个的 Promise 状态返回直接回调成功，返回该实例的状态
 
 **场景：期望最快得到一个结果，无论成功或失败**
 
 ```js
 function race(promises) {
-    return new Promise((resolve, reject) => {
-      promises.forEach((promise) => {
-        promise.then(resolve, reject);
-      });
+  return new Promise((resolve, reject) => {
+    promises.forEach((promise) => {
+      promise.then(resolve, reject);
     });
-  }
+  });
+}
 ```
-
-
 
 ### Promise.any
 
-有一个resolve就返回resolve，全部都rejected就返回[AggregateError: All promises were rejected]
+有一个 resolve 就返回 resolve，全部都 rejected 就返回[AggregateError: All promises were rejected]
 
 **场景：期望 最快的、成功的 结果，比如从响应最快的服务器读取资源**
 
 ```js
 function any(promises) {
-    // resolve必须等到有一个成功的结果
-    // reject所有的都失败才执行reject
-    const reasons = [];
-    return new Promise((resolve, reject) => {
-      promises.forEach((promise) => {
-        promise.then(resolve, (err) => {
-          reasons.push(err);
-          if (reasons.length === promises.length) {
-            reject(new AggregateError(reasons));
-          }
-        });
+  // resolve必须等到有一个成功的结果
+  // reject所有的都失败才执行reject
+  const reasons = [];
+  return new Promise((resolve, reject) => {
+    promises.forEach((promise) => {
+      promise.then(resolve, (err) => {
+        reasons.push(err);
+        if (reasons.length === promises.length) {
+          reject(new AggregateError(reasons));
+        }
       });
     });
-  }
+  });
+}
 ```
-
-
 
 ## 一些特殊情况的处理
 
 [Promise.then()值非函数，导致透传](https://juejin.cn/post/6844904077537574919#heading-24)
 
-[.then()/.catch()不能返回promise本身](https://juejin.cn/post/6844904077537574919#heading-23)
+[.then()/.catch()不能返回 promise 本身](https://juejin.cn/post/6844904077537574919#heading-23)
 
-[promise中return Error](https://juejin.cn/post/6844904077537574919#heading-22)
+[promise 中 return Error](https://juejin.cn/post/6844904077537574919#heading-22)
 
 [.catch()捕获规则](https://juejin.cn/post/6844904077537574919#heading-18)
 
-[.catch()捕获规则2](https://juejin.cn/post/6844904077537574919#heading-25)
-
-
+[.catch()捕获规则 2](https://juejin.cn/post/6844904077537574919#heading-25)
 
 ## 完整实现
 
@@ -327,11 +322,6 @@ class MyPromise {
 }
 ```
 
-
-
-
-
 参考文章：
 
-1. [45个Promise面试题](https://juejin.cn/post/6844904077537574919)
-
+1. [45 个 Promise 面试题](https://juejin.cn/post/6844904077537574919)

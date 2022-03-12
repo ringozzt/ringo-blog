@@ -37,7 +37,10 @@ module.exports = {
         path: '/html/html-detail',
         collapsable: false, // 不折叠
         children: [
-          { title: '盘点html中的细节', path: '/html/html-detail' },
+          { title: 'script和link标签', path: '/html/script' },
+          { title: 'src和href属性', path: '/html/src-href' },
+          { title: 'meta标签', path: '/html/meta' },
+          { title: '补充关于html', path: '/html/html-detail' },
           { title: '浅聊语义化', path: '/html/html-semantic' },
         ],
       },
@@ -47,6 +50,7 @@ module.exports = {
         collapsable: false, // 不折叠
         children: [
           { title: '常见布局', path: '/css/layout' },
+          { title: 'CSS动画', path: '/css/css3' },
           { title: '细节盘点', path: '/css/qa' },
           { title: '重绘重排', path: '/css/reflow' },
           { title: '伪类和伪元素', path: '/css/pseudo' },
@@ -57,16 +61,19 @@ module.exports = {
         path: '/js/base',
         collapsable: false, // 不折叠
         children: [
+          { title: 'BOM', path: '/js/bom' },
+          { title: 'DOM', path: '/js/dom' },
           { title: 'JS编程基础', path: '/js/base' },
           { title: 'JS编程进阶', path: '/js/js-senior' },
           { title: 'ES6 基本语法', path: '/js/es6' },
+          { title: '事件循环', path: '/js/event-loop' },
           { title: '关于Promise', path: '/js/promise' },
           { title: '异步编程方案', path: '/js/async' },
           { title: '类型判断', path: '/js/type' },
           { title: '事件流', path: '/js/evt-agent' },
-          { title: '关于数组方法', path: '/js/arr' },
+          { title: '数组方法', path: '/js/arr' },
+          { title: '字符串方法', path: '/js/str' },
           { title: '一行代码实现', path: '/js/single-line-util' },
-          // { title: 'BOM', path: '/basis/es6' },
         ],
       },
       {
@@ -99,10 +106,20 @@ module.exports = {
         children: [
           { title: '数据驱动视图', path: '/mvvm/diff' },
           { title: 'React Fiber模型', path: '/mvvm/fiber' },
+          { title: 'React 15到16', path: '/mvvm/v16' },
           { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
           { title: 'React源码学习', path: '/mvvm/react-source' },
           { title: '第一次技术分享', path: '/mvvm/share1' },
+          { title: '状态管理方案', path: '/mvvm/store' },
+          { title: 'react-dom', path: '/mvvm/react-dom' },
+          { title: '小程序原理', path: '/mvvm/mini-program' },
         ],
+      },
+      {
+        title: '服务端基础',
+        path: '/node/koa-compose',
+        collapsable: false, // 不折叠
+        children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
       },
       {
         title: '工程化基础',

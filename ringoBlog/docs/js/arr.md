@@ -2,7 +2,7 @@
 
 ## 集合类
 
-### foreach
+### forEach
 
 只是遍历一次数组，**没有返回值**
 
@@ -17,6 +17,10 @@
 ### reduce
 
 `reduce()` 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为**一个值**。`reduce()` 方法接受四个参数：**初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce() 的数组**。
+
+### reduceRight
+
+reduceRight()方法的功能和 reduce()功能是一样的，不同的是 reduceRight()从数组的末尾向前将数组中的数组项做累加。
 
 ## 检索类
 
@@ -72,6 +76,8 @@
 
 > 如果没有指明 `compareFunction` ，那么元素会按照转换为的字符串的逐个字符的**Unicode 位点**进行排序。
 
+[sort 底层原理](https://juejin.cn/post/6977983566256799781)
+
 ### reverse
 
 数组中元素的位置反转，返回原数组。副作用
@@ -86,7 +92,10 @@
 
 ### slice
 
-`slice` 会提取原数组中索引从 `begin` 到 `end` 的所有元素（包含 `begin`，但不包含 `end`）。纯函数，程序中常听到的概念是左闭右开，slice 也是 含左不含右 ，[A, B)
+`slice` 会提取原数组中索引从 `begin` 到 `end` 的所有元素（包含 `begin`，但不包含 `end`）。纯函数
+
+- 编程中常听到的概念都是左闭右开，slice 也是 含左不含右 ，[A, B)。
+- Math.random()产生范围在 [0,1)的数
 
 ### splice
 
@@ -131,6 +140,55 @@
 ## 改变原数组
 
 **`splice`**、**`reverse`**、**`sort`**、**`push`**、**`pop`**、**`shift`**、**`unshift`**、**`fill`**
+
+---
+
+## 对比几个循环
+
+### forEach 和 for 的区别
+
+1. for 循环可以使用 break 跳出循环，但 forEach 不能
+2. **forEach 中使用 return 会跳过一次迭代**
+3. **for 可以用 continue 跳过循环中的一个迭代，forEach 用 continue 会报错**
+4. for 循环可以控制循环起点（i 初始化的数字决定循环的起点），forEach 只能默认从索引 0 开始
+5. for 循环过程中支持修改索引（修改 i），但 forEach 做不到（底层控制 index 自增，我们无法左右它）
+
+### for of 和 for in
+
+1. `for...of`是 ES6 引入的循环方法，内部调用的是`Symbol.iterator`方法
+
+2. `for...of`循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如`arguments`对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串
+
+3. `for...in`循环读取键名，`for...of`循环读取键值。如果要通过`for...of`循环，获取数组的索引，可以借助数组实例的`entries`方法和`keys`方法
+
+4. `for...of`不能遍历对象，因为`Object`没有内建迭代器对象
+
+5. 使用`for in`会遍历数组所有的可枚举属性，包括原型，如果不想遍历原型方法和属性的话，可以在循环内部判断一下，使用`hasOwnProperty()`方法可以判断某属性是不是该对象的实例属性
+
+   ```js
+   var arr = [1, 2, 3];
+   Array.prototype.a = 123;
+
+   for (let index in arr) {
+     let res = arr[index];
+     console.log(res);
+   }
+   //1 2 3 123
+
+   for (let index in arr) {
+     if (arr.hasOwnProperty(index)) {
+       let res = arr[index];
+       console.log(res);
+     }
+   }
+   // 1 2 3
+   ```
+
+### map 和 forEach
+
+1. `map` 返回新数组，`forEach`无返回值
+2. `map`可以使用 break 中断循环，`forEach`不能使用 break 中断循环
+3. `forEach`会改变原始的数组的值，而`map`是纯函数。（当然，两者可以互相实现彼此的功能）
 
 ---
 
