@@ -122,6 +122,8 @@ let 使 JS 发生革命性的变化，让 JS 有函数作用域变为了块级�
 - performance 面板 和 memory 面板可以找到泄露的现象和位置
 - [监控内存泄漏](https://juejin.cn/post/6844904048961781774)
 
+---
+
 ## 原型链
 
 在 JavaScript 中，每当定义一个函数数据类型(普通函数、类)时候，都会天生自带一个 prototype 属性，这个属性指向函数的原型对象。
@@ -132,7 +134,7 @@ let 使 JS 发生革命性的变化，让 JS 有函数作用域变为了块级�
 
 JavaScript 对象通过`__proto__` 指向父类构造函数的原型对象，父类的原型对象又通过`__proto__`指向他的父类原型对象，就这样直到指向 Object 对象为止，Object 的原型对象的`__proto__`指向 null，这样就形成了一个原型指向的链条, 即原型链。
 
-![moliy_prototype_chain](https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg)
+<center class="half"><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg" alt="moliy_prototype_chain" style="zoom:25%;" /><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/Blog/js-relation.png" style="zoom:50%;" /></center>
 
 ### JS 面向对象之寄生组合式继承
 
@@ -181,9 +183,21 @@ stu.running();
 stu.eating();
 ```
 
+---
+
+## 赋值和深/浅拷贝的区别
+
+这三者的区别如下，不过比较的前提都是**针对引用类型**：
+
+- 当我们把一个对象赋值给一个新的变量时，**赋的其实是该对象的在栈中的地址，而不是堆中的数据**。也就是两个对象指向的是同一个存储空间，无论哪个对象发生改变，其实都是改变的存储空间的内容，因此，两个对象是联动的。
+- 浅拷贝：**重新在堆中创建内存**，拷贝前后对象的基本数据类型互不影响，但拷贝前后对象的引用类型因共享同一块内存，会相互影响。
+- 深拷贝：**重新在堆中创建内存**，将对象中的子对象进行递归拷贝，拷贝前后的两个对象互不影响。
+
 ## js 中的浅拷贝
 
-**浅拷贝的限制是只能拷贝一层对象，对嵌套的对象依然拷贝的是引用地址**。什么意思呢？
+- 堆内存中开辟一块区域，基本类型值拷贝，**引用数据类型**拷贝值引用。
+
+- **浅拷贝的限制是只能拷贝一层对象，对嵌套的对象依然拷贝的是引用地址**
 
 ### 什么是拷贝
 

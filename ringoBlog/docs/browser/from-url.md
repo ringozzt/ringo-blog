@@ -140,7 +140,7 @@ DNS 还有负载均衡的作用，现在很多网站都有多个服务器，当�
 大型网站，有多个不同服务器资源的情况下，都可采取 DNS 预解析，提前解析，减少页面卡顿。
 
 ```javascript
-<link rel="dns-prefetch" href="www.taobao.com"
+<link rel="dns-prefetch" href="www.taobao.com" />
 ```
 
 ## TCP/IP 连接
@@ -268,7 +268,7 @@ HTTPS 默认工作在 TCP 协议 443 端口，它的工作流程一般如以下�
 4. SSL 安全加密隧道协商完成
 5. 网页以加密的方式传输，用协商的对称加密算法和密钥加密，保证数据机密性；用协商的 hash 算法进行数据完整性保护，保证数据不被篡改。
 
-<img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/TSL握手.awebp" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/TSL握手.awebp" style="zoom:33%;" />
 
 ### 服务器端：处理请求并返回 HTTP 报文
 

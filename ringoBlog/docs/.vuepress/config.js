@@ -63,7 +63,7 @@ module.exports = {
         children: [
           { title: 'BOM', path: '/js/bom' },
           { title: 'DOM', path: '/js/dom' },
-          { title: 'JS编程基础', path: '/js/base' },
+          { title: 'JS编程基础', path: '/js/js-base' },
           { title: 'JS编程进阶', path: '/js/js-senior' },
           { title: 'ES6 基本语法', path: '/js/es6' },
           { title: '事件循环', path: '/js/event-loop' },
@@ -74,6 +74,7 @@ module.exports = {
           { title: '数组方法', path: '/js/arr' },
           { title: '字符串方法', path: '/js/str' },
           { title: '一行代码实现', path: '/js/single-line-util' },
+          { title: 'null和undefined', path: '/js/null' },
         ],
       },
       {
@@ -116,12 +117,6 @@ module.exports = {
         ],
       },
       {
-        title: '服务端基础',
-        path: '/node/koa-compose',
-        collapsable: false, // 不折叠
-        children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
-      },
-      {
         title: '工程化基础',
         path: '/project/fe-module',
         collapsable: false, // 不折叠
@@ -129,7 +124,14 @@ module.exports = {
           { title: '模块化基础', path: '/project/fe-module' },
           { title: '浅聊package.json', path: '/project/package.json' },
           { title: 'webpack入门', path: '/project/webpack-base' },
+          { title: 'Tree-shaking', path: '/project/tree-shaking' },
         ],
+      },
+      {
+        title: '服务端基础',
+        path: '/node/koa-compose',
+        collapsable: false, // 不折叠
+        children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
       },
       {
         title: '计算机大观园',
@@ -141,6 +143,22 @@ module.exports = {
           { title: 'svg和canvas', path: '/base/svg-canvas' },
           { title: '云原生概念', path: '/cloud/cloud-native' },
           { title: 'Docker入门', path: '/cloud/docker' },
+        ],
+      },
+      {
+        title: '数据结构',
+        path: '/algo/map',
+        collapsable: false, // 不折叠
+        children: [
+          { title: '字典', path: '/algo/map' },
+          { title: '集合', path: '/algo/set' },
+          { title: '链表', path: '/algo/list-node' },
+          { title: '堆', path: '/algo/heap' },
+          { title: '冒泡排序', path: '/algo/bubble-sort' },
+          { title: '选择排序', path: '/algo/select-sort' },
+          { title: '插入排序', path: '/algo/insert-sort' },
+          { title: '快速排序', path: '/algo/quick-sort' },
+          { title: '归并排序', path: '/algo/merge-sort' },
         ],
       },
       {

@@ -191,4 +191,3 @@ preload 和 prefetch 混用的话，并不会复用资源，而是会重复加�
 
 1. [用 preload 预加载页面资源](https://juejin.cn/post/6844903562070196237)
 2. [优化前端页面的资源加载](https://juejin.cn/post/6893681741240909832)
-3. [图解 script 标签](

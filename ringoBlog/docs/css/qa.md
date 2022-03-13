@@ -13,7 +13,7 @@ ID 选择器， 如 #id{}
 
 类选择器， 如 .class{}
 
-属性选择器， 如 a[href="segmentfault.com"]{}
+属性选择器， 如 a[href][title] {color:red;}
 
 伪类选择器， 如 :hover{}
 

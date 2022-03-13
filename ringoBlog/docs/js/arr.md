@@ -92,14 +92,59 @@ reduceRight()方法的功能和 reduce()功能是一样的，不同的是 reduce
 
 ### slice
 
-`slice` 会提取原数组中索引从 `begin` 到 `end` 的所有元素（包含 `begin`，但不包含 `end`）。纯函数
+`slice` 会返回原数组中索引从 `begin` 到 `end` 的所有元素 [`begin`， `end`)。纯函数
+
+#### 左闭右开
 
 - 编程中常听到的概念都是左闭右开，slice 也是 含左不含右 ，[A, B)。
 - Math.random()产生范围在 [0,1)的数
 
+#### 举例
+
+```js
+const arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+arr.slice(); // 无参数时，截取所有的元素。
+arr.slice(2); // 从第二个值开始提取，直到末尾
+arr.slice(-2); // 提取最后两个元素 负数会将其与长度相加，-2+6=4
+arr.slice(2, 4); // 提取从第二个到第四个之间的元素（不包括第四个元素）
+arr.slice(4, 2); // 空
+```
+
+**扩展**
+
+以前会用 slice()将伪数组，转化为真数组。
+
+```javascript
+// 方式1
+let array = Array.prototype.slice.call(arr);
+// 方式2
+let array = [].slice.call(arr);
+// ES6 版
+let array = Array.from(arr);
+// 可迭代对象
+let array = [...arr];
+```
+
 ### splice
 
-`splice()` 方法通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容，splice 也是左闭右开 含左不含右 ，[A, B)。副作用
+`splice()` 方法通过删除或替换现有元素或者原地添加新的元素来修改数组，
+
+并以数组形式**返回被修改的内容**。
+
+副作用
+
+```js
+// 新数组 = 原数组.splice(起始索引index, 需要删除的个数);
+// 新数组 = 原数组.splice(起始索引index, 需要删除的个数, 新的元素1, 新的元素2...);
+var arr1 = ['a', 'b', 'c', 'd', 'e', 'f'];
+arr1.splice(1); // 从第index为1的位置开始，删除元素
+arr2.splice(-2); // 删除最后两个元素，和slice同样的思想。
+arr3.splice(1, 3); // 从第index为1的位置开始删除元素,一共删除三个元素
+// 增加系列
+arr4.splice(1, 0, 'g', 'h'); // 纯增加情况
+// 替换的情况就是 先删除再增加
+arr4.splice(1, 3, 'js', 'vue'); // 删除+增加 == 更改
+```
 
 ### pop
 
