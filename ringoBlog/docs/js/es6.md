@@ -31,7 +31,11 @@
 ### 箭头函数
 
 - 相较于普通函数，箭头函数是没有 prototype 的，不能作为构造函数，不能使用 new 来创造对象
-- 箭头函数的 this 在定义时继承自外层的第一个普通函数(外层没有函数就是 window)，确定了就不会改变(call,apply,bind 失效)
+
+- 箭头函数里访问 this , 将会访问从该函数往外的第一个非箭头函数获取上下文(最外层就是 window)，
+
+  确定了就不会改变(call,apply,bind 失效)，因为本身没有可绑定的 this
+
 - 内部没有 arguments 对象，会访问外层第一个普通函数的参数。如果要获取不定数量的参数，可以使用 rest 运算符
 
 ```javascript
@@ -41,38 +45,9 @@ const a = (first, ...abc) => {
 a(1, 2, 3, 4);
 ```
 
-- rest 参数注意点：
-
-  - rest 可以帮我们转换数组
-
-    ```javascript
-    arguments.push(0); // arguments.push is not a function
-    arguments = [...arguments];
-    //或者
-    arguments = Array.from(arguments);
-    ```
-
-  - 函数的 length 属性，不包括 rest 参数
-
-    ```javascript
-    (function (...a) {}.length(
-      // 0
-      function (a, ...b) {}
-    ).length); // 1
-    ```
-
-  - rest 必须是函数最后一位参数
-
-    ```javascript
-    let a = (first, ...rest, three) => {
-      console.log(first, rest,three); // 报错：Rest parameter must be last formal parameter
-    };
-    a(1, 2, 3, 4);
-    ```
-
 - 箭头函数不支持 new.target，普通函数可以通过他返回该函数的引用
 
-- 箭头函数一行返回对象字面量，需要返回`=> ({ key: value })`
+- 箭头函数一行返回对象字面量，需要在对象外面包裹(),像这样`=> ({ key: value })`
 
 - 函数体只有一行且不需要返回值，可以用 void
 
@@ -108,9 +83,92 @@ a(1, 2, 3, 4);
 - 全局作用域下的箭头函数，严格和非严格模式 this 都指向 window
 - 非严格：默认绑定的 this 指向全局对象，严格：this 指向 undefined
 
-### 展开运算符
+### Rest 参数
 
-- 一种浅拷贝
+- rest 可以帮我们将类数组转换成数组
+
+  ```javascript
+  arguments.push(0); // arguments.push is not a function
+  arguments = [...arguments];
+  //或者
+  arguments = Array.from(arguments);
+  ```
+
+- 字符串转字符数组
+
+  `String` 也是一个可迭代对象，所以也可以使用扩展运算符 `...` 将其转为字符数组
+
+- NodeList 转数组
+
+  > `NodeList` 对象是节点的集合，通常是由属性，如 `Node.childNodes` 和方法，如 `document.querySelectorAll` 返回的。
+
+- 函数的 length 属性，不包括 rest 参数
+
+  ```javascript
+  function foo(a, ...b) {}
+  console.log('foo.length:', foo.length); // foo.length: 1
+
+  function bar(...a) {}
+  console.log('bar.length:', bar.length); // bar.length: 0
+  ```
+
+- rest 必须是函数最后一位参数
+
+  ```javascript
+  let a = (first, ...rest, three) => {
+    console.log(first, rest,three); // 报错：Rest parameter must be last formal parameter
+  };
+  a(1, 2, 3, 4);
+  ```
+
+### Spread 展开运算符
+
+- 一种**浅拷贝**，和 slice()类似，但是可以拷贝对象
+
+  ```js
+  // 拷贝数组
+  const years = [2018, 2019, 2020, 2021, 2022];
+  const copyYears = [...years];
+  console.log(copyYears); // [ 2018, 2019, 2020, 2021, 2022 ]
+
+  // 拷贝对象
+  const time = {
+    year: 2021,
+    month: 7,
+    day: {
+      value: 1,
+    },
+  };
+  const copyTime = { ...time };
+  console.log(copyTime); // { year: 2021, month: 7, day: { value: 1 } }
+  ```
+
+- 代替 concat 合并数组，也可以合并对象
+
+- 配合 Set 实现数组去重
+
+### Object.assign
+
+```js
+// 将其他对象属性拷贝到target对象
+Object.assign(target, ...sources);
+// 将原始对象拷贝到一个空对象，实现浅拷贝
+Object.assign({}, ...sources);
+```
+
+- 能够实现对象的合并，`Object.assign`会将 source 里面的**可枚举属性**复制到`target`
+
+- 如果和 target 的已有属性重名，则会覆盖。同时后续的 source 会覆盖前面的 source 的同名属性
+
+- Vue2 中响应式修改数据，这样添加到对象上的新属性才会触发更新
+
+  ```
+  this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
+  ```
+
+- Object.assign 会触发 Proxy/Object.definedProperty 的 set 方法，展开运算符“...”不会触发
+
+**注意**：assign 也是一种浅拷贝，如果属性是引用类型，就会存在引用共享的问题。
 
 ### Symbol
 
@@ -142,20 +200,119 @@ a(1, 2, 3, 4);
 - 只能使用对象作 key，不能使用基本数据类型
 - 场景：响应式原理
 
-### Proxy
+### Proxy 代理
 
 - 创建一个代理对象，用于监听一个对象的相关操作
-- 13 个捕获器，方法类似于对象
-  [掌握 Proxy](https://juejin.cn/post/6844904012790120462)
+
+- 13 个捕获器，方法类似于对象：[掌握 Proxy](https://juejin.cn/post/6844904012790120462)
+
+  ```js
+  // Object.getPrototypeOf 方法的捕捉器。
+  handler.getPrototypeOf();
+
+  // Object.setPrototypeOf 方法的捕捉器。
+  handler.setPrototypeOf();
+
+  // Object.isExtensible 方法的捕捉器。
+  handler.isExtensible();
+
+  // Object.preventExtensions 方法的捕捉器。
+  handler.preventExtensions();
+
+  // Object.getOwnPropertyDescriptor 方法的捕捉器。
+  handler.getOwnPropertyDescriptor();
+
+  // Object.defineProperty 方法的捕捉器。
+  handler.defineProperty();
+
+  // in 操作符的捕捉器。
+  handler.has();
+
+  // 属性读取操作的捕捉器。
+  handler.get();
+
+  // 属性设置操作的捕捉器。
+  handler.set();
+
+  // delete 操作符的捕捉器。
+  handler.deleteProperty();
+
+  // Object.getOwnPropertyNames 方法和 Object.getOwnPropertySymbols 方法的捕捉器。
+  handler.ownKeys();
+
+  // 函数调用操作的捕捉器。
+  handler.apply();
+
+  // new 操作符的捕捉器。
+  handler.construct();
+  ```
+
+- 实现 Vue3 中的双向绑定：
+
+  [Vue2 和 Vue3 的 Proxy、Reflect](https://juejin.cn/post/6930539560476606478)
+
   [vue2->vue3,defineProperty->Proxy](https://juejin.cn/post/6844903601416978439)
 
-### Reflect
+### Reflect 反射
 
 - 用于操作对象，类似于继承了 Object 中操作对象的方法
+
 - Object 作为一个构造函数，不应该直接操作他，reflect 是为了规范对对象本身的操作
-- 13 个方法
-  [掌握 reflect](https://juejin.cn/post/6997212505579716644)
+
+- 13 个方法：[掌握 reflect](https://juejin.cn/post/6997212505579716644)
+
+  ```js
+  // 对一个函数进行调用操作，同时可以传入一个数组作为调用参数。
+  // 和 Function.prototype.apply() 功能类似。
+  Reflect.apply(target, thisArgument, argumentsList)
+
+  // 对构造函数进行 new 操作，相当于执行 new target(...args)。
+  Reflect.construct(target, argumentsList[, newTarget])
+
+  // 和 Object.defineProperty() 类似。如果设置成功就会返回 true
+  Reflect.defineProperty(target, propertyKey, attributes)
+
+  // 作为函数的delete操作符，相当于执行 delete target[name]。
+  Reflect.deleteProperty(target, propertyKey)
+
+  // 获取对象身上某个属性的值，类似于 target[name]。
+  Reflect.get(target, propertyKey[, receiver])
+
+  // 类似于 Object.getOwnPropertyDescriptor()。
+  // 如果对象中存在该属性，则返回对应的属性描述符,  否则返回 undefined.
+  Reflect.getOwnPropertyDescriptor(target, propertyKey)
+
+  // 类似于 Object.getPrototypeOf()。
+  Reflect.getPrototypeOf(target)
+
+  // 判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同。
+  Reflect.has(target, propertyKey)
+
+  // 类似于 Object.isExtensible().
+  Reflect.isExtensible(target)
+
+  // 返回一个包含所有自身属性（不包含继承属性）的数组。
+  // (类似于 Object.keys(), 但不会受enumerable影响).
+  Reflect.ownKeys(target)
+
+  // 类似于 Object.preventExtensions()。返回一个Boolean。
+  Reflect.preventExtensions(target)
+
+  // 将值分配给属性的函数。返回一个Boolean，如果更新成功，则返回true。
+  Reflect.set(target, propertyKey, value[, receiver])
+
+  // 设置对象原型的函数. 返回一个 Boolean， 如果更新成功，则返回true。
+  Reflect.setPrototypeOf(target, prototype)
+  ```
+
+- 应用于 Node 框架中，实现 DI 能力，如 Nest.js。
+
+  通过装饰器来给类添加一些自定义的信息。然后通过反射将这些信息提取出来。当然也可以通过反射来添加一些信息。
 
 ### Promise
 
+[关于 Promise](https://ringozzt.github.io/ringo-blog/js/promise.html)
+
 ### Generator
+
+[关于生成器函数](https://ringozzt.github.io/ringo-blog/js/async.html)

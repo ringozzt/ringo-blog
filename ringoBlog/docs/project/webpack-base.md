@@ -2,7 +2,6 @@
 
 首先，webpack 是一款打包工具，我们平时用的 Vue-CLI，create-React-App 等都是基于 Webpack 进行配置的脚手架。
 
-
 ## webpack.config.js
 
 存放 webpack 配置的说明文件，以下我们讨论的内容多数是写在这里面的。
@@ -107,6 +106,14 @@ module.exports = {
 ## Plugin
 
 ### 常用的 plugin：
+
+#### webpack-bundle-analyzer
+
+webpack bundle 文件去重，对 bundle 文件定性分析的工具，能发现问题，能看出优化效果、能以图形化的方式展示 bundle 中所有的模块的构成的各构成的大小。
+
+#### CommonsChunkPlugin
+
+对通用模块进行提取，自动提取所有的 node_modules 或者引用次数两次以上的模块
 
 #### html-webpack-plugin
 

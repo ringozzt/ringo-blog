@@ -1,6 +1,6 @@
 # script、link 标签大整理
 
-## 在收到服务端发来的 html 后
+## 收到服务端发来的 html 后
 
 1. 浏览器会对这个 html 文件进行编译，转化成类似树形结构，html-head-script...
 

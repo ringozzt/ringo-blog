@@ -48,7 +48,7 @@ Object、Array、Function...
 ### new 关键字做了什么
 
 - 在内存中创建一个空对象
-- 对象内部的 prototype 被赋值为类的 prototype
+- 类的 prototype 赋值给对象内部的 prototype
 - 构造函数内的 this 被指向创建出来的新对象
 - 执行构造函数的内部代码
 - 如果构造函数没有返回对象，则默认返回创建出来的新对象

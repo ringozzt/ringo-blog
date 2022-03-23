@@ -58,7 +58,7 @@ module.exports = {
       },
       {
         title: 'JavaScript',
-        path: '/js/base',
+        path: '/js/js-base',
         collapsable: false, // 不折叠
         children: [
           { title: 'BOM', path: '/js/bom' },
@@ -69,6 +69,7 @@ module.exports = {
           { title: '事件循环', path: '/js/event-loop' },
           { title: '关于Promise', path: '/js/promise' },
           { title: '异步编程方案', path: '/js/async' },
+          { title: '深浅拷贝、比较', path: '/js/deep' },
           { title: '类型判断', path: '/js/type' },
           { title: '事件流', path: '/js/evt-agent' },
           { title: '数组方法', path: '/js/arr' },
@@ -76,6 +77,18 @@ module.exports = {
           { title: '一行代码实现', path: '/js/single-line-util' },
           { title: 'null和undefined', path: '/js/null' },
         ],
+      },
+      {
+        title: 'TypeScript',
+        path: '/ts/ts-base',
+        collapsable: false, // 不折叠
+        children: [{ title: 'TypeScript 基础', path: '/ts/ts-base' }],
+      },
+      {
+        title: '计算机网络',
+        path: '/network/https',
+        collapsable: false, // 不折叠
+        children: [{ title: '关于https', path: '/network/https' }],
       },
       {
         title: '浏览器',
@@ -88,6 +101,18 @@ module.exports = {
           { title: '跨域问题', path: '/browser/cross-origin' },
           { title: 'Webview', path: '/browser/webview' },
           { title: '浏览器的5种观察者', path: '/browser/observer' },
+        ],
+      },
+      {
+        title: '工程化基础',
+        path: '/project/fe-module',
+        collapsable: false, // 不折叠
+        children: [
+          { title: '模块化基础', path: '/project/fe-module' },
+          { title: '浅聊package.json', path: '/project/package.json' },
+          { title: 'webpack入门', path: '/project/webpack-base' },
+          { title: 'Tree-shaking', path: '/project/tree-shaking' },
+          { title: 'babel-polyfill', path: '/project/babel-polyfill' },
         ],
       },
       {
@@ -107,6 +132,7 @@ module.exports = {
         children: [
           { title: '数据驱动视图', path: '/mvvm/diff' },
           { title: 'React Fiber模型', path: '/mvvm/fiber' },
+          { title: 'React hooks', path: '/mvvm/hooks' },
           { title: 'React 15到16', path: '/mvvm/v16' },
           { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
           { title: 'React源码学习', path: '/mvvm/react-source' },
@@ -117,24 +143,13 @@ module.exports = {
         ],
       },
       {
-        title: '工程化基础',
-        path: '/project/fe-module',
-        collapsable: false, // 不折叠
-        children: [
-          { title: '模块化基础', path: '/project/fe-module' },
-          { title: '浅聊package.json', path: '/project/package.json' },
-          { title: 'webpack入门', path: '/project/webpack-base' },
-          { title: 'Tree-shaking', path: '/project/tree-shaking' },
-        ],
-      },
-      {
         title: '服务端基础',
         path: '/node/koa-compose',
         collapsable: false, // 不折叠
         children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
       },
       {
-        title: '计算机大观园',
+        title: '知识储备',
         path: '/base/git',
         collapsable: false, // 不折叠
         children: [

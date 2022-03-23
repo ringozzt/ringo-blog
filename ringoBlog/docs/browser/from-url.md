@@ -2,51 +2,49 @@
 
 ## URL 解析
 
-### 为什么需要 URL 编码
+### 为什么 URL 需要编码
 
 URL 编码的原则就是使用安全的字符（没有特殊用途或者特殊意义的可打印字符）去表示那些不安全的字符，从而形成统一标准。
 
-### encodeURIComponent 和 encodeURI
+### 编码方法
 
-escape 是对字符串进行编码，不适用于 URL
+**escape 字符串编码**
 
-> escape 函数是全局对象的属性。特色字符如: @\*\_+-./ 被排除在外。字符的 16 进制格式值,当该值小于等于 0xFF 时,用一个 2 位转移序列: %xx 表示. 大于的话则使用 4 位序列:%uxxxx 表示.
+escape 适合对字符串进行编码，不适用于 URL
 
-#### encodeURIComponent 编码范围更大
+不会编码下列特殊字符
 
-encodeURI 方法不会对下列字符编码：
+```
+: @\*\_+-./
+```
+
+字符的 16 进制格式值,当该值小于等于 0xFF 时,用一个 2 位转移序列: %xx 表示. 大于的话则使用 4 位序列:%uxxxx 表示。
+
+**encodeURIComponent 编码范围更大**
+
+encodeURI 方法**不会**编码下列字符：
 
 ```
 ASCII字母，数字，~!@#$&*()=:/,;?+'
 ```
 
-encodeURIComponent 方法不会对下列字符编码：
+encodeURIComponent 方法**不会**编码下列字符：
 
 ```
 ASCII字母，数字， ~!*()'
 ```
 
-**1、如果只是编码字符串，不和 URL 有半毛钱关系，那么用 escape。**
-
-**2、如果你需要编码整个 URL，然后需要使用这个 URL，那么用 encodeURI。**
-
 比如
 
 ```js
 encodeURI('https://www.baidu.com/some other thing');
+// 'https://www.baidu.com/some%20other%20thing'
+// 其中，空格被编码成了 %20
 
-// 编码后会变为
-('https://www.baidu.com/some%20other%20thing');
-
-// 其中，空格被编码成了%20。
-// 但是如果你用了encodeURIComponent，那么结果变为
-
-('http%3A%2F%2Fwww.baidu.com%2Fsome%20other%20thing');
-
+encodeURIComponent('https://www.baidu.com/some other thing');
+// 'http%3A%2F%2Fwww.baidu.com%2Fsome%20other%20thing'
 // 连 "/" 都被编码了，整个URL已经没法用了。
 ```
-
-**3、当你需要编码 URL 中的参数(包括"/")的时候，那么 encodeURIComponent 是最好方法。**
 
 ### URL、URN、URI
 
@@ -94,13 +92,7 @@ encodeURI('https://www.baidu.com/some other thing');
 局部的 DNS 服务器并不会自己向其他服务器进行查询，而是把能够解析该域名的服务器 IP 地址返回给客户端，客户端会不断的向这些服务器进行查询，直到查询到了位置，迭代的话只会帮你找到相关的服务器，然后说我现在比较忙，你自己去找吧。
 
 - 查找本地 hosts 文件
-
-> 下面 2 步是递归
-
 - DNS 域名解析器（电脑里配置的）
-
-> 下面 4 步为迭代查询
-
 - 宽带运营商服务器查询有没有缓存
 - 查看是否设置转发模式，根域名服务器(返回 com 地址)
 - 顶级域名服务器.com/.cn/.edu(返回 baidu.com 地址)
@@ -143,13 +135,43 @@ DNS 还有负载均衡的作用，现在很多网站都有多个服务器，当�
 <link rel="dns-prefetch" href="www.taobao.com" />
 ```
 
+## CDN 解析
+
+> CDN 是一种内容分发网络，部署在应用层，利用智能分配技术，根据用户访问的地点，按照就近访问的原则分配到多个节点，来实现多点负载均衡。
+> 简单来说，用户就近访问，访问速度更快，大公司也无需搞一台超级带宽的存储服务器，只需使用多台正常带宽的 CDN 节点即可。
+> 而 CDN 的常见实现是有一台源站服务器，多个 CDN 节点定时从源站同步。
+
+当我们需要加速网站时
+
+1. 通过向服务商注册自己加速域名，源站域名
+2. 进入到自己域名的 DNS 配置信息，设置一个`CNAME`指向 CDN 服务商即可。
+
+开启 CDN 后的 DNS 过程
+
+1. DNS 系统会最终将域名的解析权交给 CNAME 指向的 CDN 专用 DNS 服务器
+2. CDN 的 DNS 服务器将 CDN 的全局负载均衡设备 IP 地址返回用户
+3. 用户向 CDN 的全局负载均衡设备发起内容访问请求
+4. 全局负载均衡设备根据用户 IP 地址、请求的内容，选择用户所属区域的区域负载均衡设备，告诉用户向这台设备发起请求
+5. 区域负载均衡设备会为用户选择一台合适的缓存服务器提供服务
+6. 全局负载均衡设备把服务器的 IP 地址返回给用户
+
+优势有很多：
+
+1. 本地 Cache 加速，加快访问速度
+2. 镜像服务，消除运营商之间互联的瓶颈影响，保证不同网络的用户都能得到良好的访问质量
+3. 远程加速，自动选择 cache 服务器
+4. 带宽优化，分担波峰网络流量，减轻主站压力
+5. 集群抗 ddos 攻击
+
+<img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/Blog/whatcdn.awebp" alt="cdn流程图" style="zoom:65%;" />
+
 ## TCP/IP 连接
 
 **Chrome 在同一个域名下要求同时最多只能有 6 个 TCP 连接，超过 6 个的话剩下的请求就得等待。**
 
-<img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/osi-1.gif" alt="osi" style="zoom:80%;" />
-
 <img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/osi-2.awebp" alt="osi-2" style="zoom: 33%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/osi-1.gif" alt="osi" style="zoom:80%;" />
 
 ### 三次握手
 
@@ -467,50 +489,9 @@ HTTP 请求一般可以分为两类，静态资源 和 动态资源。
 
 看到这里你也就是明白，当某个动画大量占用内存的时候，浏览器生成图像的时候会变慢，图像传送给显卡就会不及时，而显示器还是以不变的频率刷新，因此会出现卡顿，也就是明显的掉帧现象。
 
-### 重绘重排
+---
 
-#### 引起重排的事件：
-
-1. 页面首次渲染
-2. 浏览器窗口大小发生改变
-3. 元素尺寸或位置发生改变
-4. 元素内容变化（文字数量或图片大小等等）
-5. 元素字体大小变化
-6. 添加或者删除可见的 DOM 元素
-7. 激活 CSS 伪类（例如：:hover）
-8. 查询某些属性或调用某些方法
-
-#### 引起重排的属性和方法：
-
-- clientWidth、clientHeight、clientTop、clientLeft
-- offsetWidth、offsetHeight、offsetTop、offsetLeft
-- scrollWidth、scrollHeight、scrollTop、scrollLeft
-- scrollIntoView()、scrollIntoViewIffNeeded()
-- getComputedStyle()
-- getBoundingClientRect()
-- scrollTo()
-
-#### 如何减少回流
-
-- css
-
-1. 避免使用 table 布局;
-2. 尽可能在 DOM 树的最末端改变 class;
-3. 避免设置多层内联样式;
-4. 将动画效果应用到 position 属性为 absolute 或 fixed 的元素上;
-5. 避免使用 CSS 表达式（例如：calc()）。
-
-- JS
-
-1. 避免频繁操作样式，最好一次性重写 style 属性，或者将样式列表定义为 class 并一次性更改 class 属性。
-2. 避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。
-3. 也可以先为元素设置 display: none，操作结束后再把它显示出来。因为在 display 属性为 none 的元素上进行的 DOM 操作不会引发回流和重绘。
-4. 避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。
-5. 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
-
-### 站在巨人的肩膀上学习
-
-###### 参考文章
+## 感谢巨人
 
 1. https://juejin.cn/post/6844904021308735502
 2. https://zhuanlan.zhihu.com/p/86426969

@@ -2,7 +2,7 @@
 
 ## 概念
 
-字典也是一种存储**唯一值**的数据结构，但它是以**键值对**的形式来存储。[MDN-map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
+字典是一种存储**唯一值**的数据结构，但它是以**键值对**的形式来存储。[MDN-map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
 1. 与 Object 不同，map 允许使用几乎所有类型（对象、数组、undefined...）作为 key；Object 只允许 string 或者 Symbol 作 key
 
@@ -55,3 +55,7 @@ for (const [key, value] of m) {
   console.log(key, value);
 }
 ```
+
+### 感谢巨人：
+
+1. [飞鸟-数据结构-字典](https://lzxjack.top/post?title=map)

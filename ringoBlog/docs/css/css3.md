@@ -83,8 +83,8 @@
 transform-style: flat|preserve-3d;
 
 transform-style: flat; // 默认，子元素将不保留其 3D 位置
-transform-style: preserve-3d; // 子元素将保留其 3D 位置。
-复制代码
+transform-style: preserve-3d; // 子元素将保留其 3D 位置
+
 ```
 
 当我们指定一个容器的 transform-style 的属性值为 preserve-3d 时，容器的后代元素便会具有 3D 效果，这样说有点抽象，也就是当前父容器设置了 preserve-3d 值后，它的子元素就可以相对于父元素所在的平面，进行 3D 变形操作。

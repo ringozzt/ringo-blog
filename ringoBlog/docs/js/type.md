@@ -47,6 +47,45 @@ console.log(arr instanceof Array); // true
 
 `instanceof` 主要的实现原理就是只要右边变量的 `prototype` 在左边变量的原型链上即可。因此，`instanceof` 在查找的过程中会遍历左边变量的原型链，直到找到右边变量的 `prototype`，如果查找失败，则会返回 false，告诉我们左边变量并非是右边变量的实例。
 
+### 实现
+
+```js
+// 1.用来验证 变量R的原型 是否存在于 变量L的原型链上
+// 2.判断 L 是不是 R 的实例对象
+function instance_of(L, R) {
+  // 验证如果为基本数据类型，就直接返回 false
+  const baseType = ['string', 'number', 'boolean', 'undefined', 'symbol'];
+  if (baseType.includes(typeof L)) {
+    return false;
+  }
+
+  let RP = R.prototype; // 取 R 的显示原型
+  L = L.__proto__; // 取 L 的隐式原型
+  while (true) {
+    if (L === null) {
+      // 找到最顶层
+      return false;
+    }
+    if (L === RP) {
+      // 严格相等
+      return true;
+    }
+    L = L.__proto__; // 没找到继续向上一层原型链查找
+  }
+}
+
+function Foo(name) {
+  this.name = name;
+}
+
+var f = new Foo('nick');
+
+console.log(f instanceof Foo); // true
+console.log(f instanceof Object); // true
+console.log(instance_of(f, Foo));
+console.log(instance_of(f, Object));
+```
+
 **缺点：** instanceof 底层原理是检测构造函数的 prototype 属性是否出现在某个实例的原型链上，如果实例的原型链发生变化，则无法做出正确判断。
 
 ```javascript
