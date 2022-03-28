@@ -29,13 +29,13 @@ module.exports = {
       {
         title: '关于我',
         path: '/',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [{ title: `出道一年的前端练习生`, path: '/' }],
       },
       {
         title: 'HTML',
         path: '/html/html-detail',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: 'script和link标签', path: '/html/script' },
           { title: 'src和href属性', path: '/html/src-href' },
@@ -47,11 +47,11 @@ module.exports = {
       {
         title: 'CSS基础',
         path: '/css/layout',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '常见布局', path: '/css/layout' },
           { title: 'CSS动画', path: '/css/css3' },
-          { title: '细节盘点', path: '/css/qa' },
+          { title: '常见问题', path: '/css/qa' },
           { title: '重绘重排', path: '/css/reflow' },
           { title: '伪类和伪元素', path: '/css/pseudo' },
         ],
@@ -59,7 +59,7 @@ module.exports = {
       {
         title: 'JavaScript',
         path: '/js/js-base',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: 'BOM', path: '/js/bom' },
           { title: 'DOM', path: '/js/dom' },
@@ -76,24 +76,25 @@ module.exports = {
           { title: '字符串方法', path: '/js/str' },
           { title: '一行代码实现', path: '/js/single-line-util' },
           { title: 'null和undefined', path: '/js/null' },
+          { title: '备忘录', path: '/js/memo' },
         ],
       },
       {
         title: 'TypeScript',
         path: '/ts/ts-base',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [{ title: 'TypeScript 基础', path: '/ts/ts-base' }],
       },
       {
         title: '计算机网络',
         path: '/network/https',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [{ title: '关于https', path: '/network/https' }],
       },
       {
         title: '浏览器',
         path: '/base/fe-cache',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '进程、线程、协程', path: '/base/process' },
           { title: '前端缓存和鉴权', path: '/base/fe-cache' },
@@ -106,7 +107,7 @@ module.exports = {
       {
         title: '工程化基础',
         path: '/project/fe-module',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '模块化基础', path: '/project/fe-module' },
           { title: '浅聊package.json', path: '/project/package.json' },
@@ -118,7 +119,7 @@ module.exports = {
       {
         title: '前端进阶',
         path: '/advance/optimize',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '长列表', path: '/advance/longlist' },
           { title: '性能优化', path: '/advance/optimize' },
@@ -128,12 +129,13 @@ module.exports = {
       {
         title: '框架',
         path: '/mvvm/diff',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '数据驱动视图', path: '/mvvm/diff' },
           { title: 'React Fiber模型', path: '/mvvm/fiber' },
           { title: 'React hooks', path: '/mvvm/hooks' },
           { title: 'React 15到16', path: '/mvvm/v16' },
+          { title: 'React 18', path: '/mvvm/v18' },
           { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
           { title: 'React源码学习', path: '/mvvm/react-source' },
           { title: '第一次技术分享', path: '/mvvm/share1' },
@@ -145,13 +147,13 @@ module.exports = {
       {
         title: '服务端基础',
         path: '/node/koa-compose',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
       },
       {
         title: '知识储备',
         path: '/base/git',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: 'Git备忘录', path: '/base/git' },
           { title: '函数式编程', path: '/base/functional' },
@@ -162,34 +164,41 @@ module.exports = {
       },
       {
         title: '数据结构',
-        path: '/algo/map',
-        collapsable: false, // 不折叠
+        path: '/algo/binary-tree',
+        collapsable: false,
         children: [
+          { title: '二叉树', path: '/algo/binary-tree' },
           { title: '字典', path: '/algo/map' },
           { title: '集合', path: '/algo/set' },
           { title: '链表', path: '/algo/list-node' },
           { title: '堆', path: '/algo/heap' },
+          { title: '快速排序', path: '/algo/quick-sort' },
+          { title: '插入排序', path: '/algo/insert-sort' },
           { title: '冒泡排序', path: '/algo/bubble-sort' },
           { title: '选择排序', path: '/algo/select-sort' },
-          { title: '插入排序', path: '/algo/insert-sort' },
-          { title: '快速排序', path: '/algo/quick-sort' },
           { title: '归并排序', path: '/algo/merge-sort' },
+          { title: '计数排序', path: '/algo/count-sort' },
+          { title: '希尔排序', path: '/algo/shell-sort' },
+          { title: '桶排序', path: '/algo/bucket-sort' },
+          { title: '堆排序', path: '/algo/heap-sort' },
+          { title: '链表是否有环', path: '/algo/list-loop' },
         ],
       },
       {
         title: '实用工具',
         path: '/utils/caniuse',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: 'CanIUse', path: '/utils/caniuse' },
           { title: 'base64转换', path: '/utils/show-base64' },
           { title: '可视化正则', path: '/utils/show-regexp' },
+          { title: 'shell.how', path: '/utils/shell-how' },
         ],
       },
       {
         title: '日报&周报',
         path: '/daily/day20210930',
-        collapsable: false, // 不折叠
+        collapsable: false,
         children: [
           { title: '日报20210930', path: '/daily/day20210930' },
           { title: '周报20210930', path: '/daily/week20210930' },

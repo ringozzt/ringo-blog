@@ -87,7 +87,7 @@ window.addEventListener('load', (event) => {
 加入 defer 属性后，即使把`<script>`标签放入`<head>`也不会阻塞后面 DOM 的解析，而且脚本会延迟到整个 DOM 解析完后在去执行。也就是`<script>`标签加入 defer 属性会告诉`浏览器立即下载脚本，但是延迟执行脚本`。
 
 1. 可以看到主进程的`Parse HTML`并不会受`<script>`标签影响，网络进程还是会立即去加载脚本资源。
-2. 多个设置了`defer属性`的 script 标签，会按照文档中 script 放置顺序执行内容（`即使前置的script加载耗时更长`）。
+2. 多个设置了`defer属性`的 script 标签，会按照文档中 script 放置顺序来执行（`即使前置的script加载耗时更长`）。
 3. 脚本内容会在 HTML 解析完毕后，`DOMContentLoaded`事件调用前执行。
 
 ### async 异步脚本
@@ -101,7 +101,7 @@ window.addEventListener('load', (event) => {
 
 ### async、defer 同时存在
 
-async
+效果等于 async。
 
 ### charset
 
@@ -109,7 +109,17 @@ async
 
 ## link 标签
 
-[更多属性](https://juejin.cn/post/6971640926389141518)
+[MDN-link type](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types)
+
+[更多属性讲解](https://juejin.cn/post/6971640926389141518)
+
+### stylesheet
+
+最常见的 HTML 加载样式表，引入 css 文件
+
+```html
+<link rel="stylesheet" href="index.css" type="text/css" />
+```
 
 ### 如何区分 preload 和 prefetch
 

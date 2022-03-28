@@ -1,5 +1,21 @@
 # CSS 常见问题盘点
 
+## 盒模型
+
+`box-sizing`: content-box（默认）\ border-box \ inherit
+
+### content-box（标准盒模型）:
+
+width、height === 内容的宽高
+
+### border-box（IE 盒模型）:
+
+width、height ===（内容的宽高+border+padding）
+
+### inherit
+
+从父元素继承 `box-sizing` 属性的值，若未设置，默认为 `content-box`
+
 ## '+'和'~'有什么不同
 
 - `+` 选择器匹配紧邻的兄弟元素
@@ -81,25 +97,64 @@ ID 选择器， 如 #id{}
 
 - 字符超出部分换行
 
+  ```css
   word-wrap: break-word;
+  ```
 
 - 字符超出位置使用连字符
 
+  ```css
+  /* 连字符有时可以在URL和长单词中使用 */
   hyphens: auto;
+  ```
 
-- 单行超出省略
+- 单行超出显示省略号
 
-  white-space: nowrap;
-
-  overflow:hidden;
-
-  text-overflow: ellipsis;
+  ```css
+  .ellipsis {
+    overflow: hidden; /* 超出部分隐藏 */
+    white-space: nowrap; /* 禁止换行 */
+    text-overflow: ellipsis; /* 省略号 */
+    display: inline-block;
+  }
+  ```
 
 - 多行超出省略
 
-  overflow:hidden;
-
+  ```css
+  overflow: hidden;
   text-overflow: ellipsis;
+  ```
+
+### word-wrap\overflow-wrap（CSS3）
+
+| 值         | 描述                                                   |
+| ---------- | ------------------------------------------------------ |
+| normal     | 单词结束处正常换行                                     |
+| break-word | 行内没有位置容纳该单词时, 长单词 或 URL 内部截断换行。 |
+
+### word-break
+
+| 值        | 描述                                                           |
+| --------- | -------------------------------------------------------------- |
+| normal    | 使用默认换行规则                                               |
+| break-all | 对于 non-CJK (CJK 指中文/日文/韩文) 文本，可在任意字符间断行。 |
+| keep-all  | CJK 文本不断行。 Non-CJK 文本表现同 normal。                   |
+
+### white-space
+
+| 值       | 描述                                                                                     |
+| -------- | ---------------------------------------------------------------------------------------- |
+| normal   | 连续的空白符会被合并，换行符会被当作空白符来处理。填充 line 盒子时，必要的话会换行。     |
+| nowrap   | 和 normal 一样，连续的空白符会被合并。但文本内的换行无效。                               |
+| pre      | 连续的空白符会被保留。在遇到换行符或者`<br>`元素时才会换行。                             |
+| pre-wrap | 连续的空白符会被保留。在遇到换行符或者`<br>`元素，或者需要为了填充 line 盒子时才会换行。 |
+| pre-line | 连续的空白符会被合并。在遇到换行符或者`<br>`元素，或者需要为了填充 line 盒子时会换行。   |
+
+### overflow-wrap 和 word-break 的优先级
+
+1、在 word-break 非 break-all 的情况下，overflow-wrap: break-word 有效。
+2、在 word-break 为 break-all 的情况下，overflow-wrap: break-word 无效。
 
 ## display: inline-block 间隙
 

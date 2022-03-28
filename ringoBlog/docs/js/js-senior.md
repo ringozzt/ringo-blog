@@ -6,11 +6,13 @@
 
 当函数经过`new`调用时，这个函数就成为了构造函数，返回一个全新的**实例对象**，这个实例对象有一个`__proto__`属性，指向构造函数的原型对象。
 
+原型链是继承的主要实现方式，通过这种方式继承多个引用类型的属性和方法。
+
 ### 描述一下原型链
 
 JavaScript 对象通过`__proto__` 指向父类构造函数的原型对象，父类的原型对象又通过`__proto__`指向他的父类原型对象，就这样直到指向 Object 对象为止，Object 的原型对象的`__proto__`指向 null，这样就形成了一个原型指向的链条, 即原型链。
 
-<center class="half"><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg" alt="moliy_prototype_chain" style="zoom:25%;" /><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/Blog/js-relation.png" style="zoom:50%;" /></center>
+<center class="half"><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg" alt="moliy_prototype_chain" style="zoom:30%;" /><img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/Blog/js-relation.png" style="zoom:60%;" /></center>
 
 ### JS 面向对象之寄生组合式继承
 
@@ -51,7 +53,7 @@ Student.prototype.studying = function () {
   console.log('studying~');
 };
 
-// 测试一下
+// 测试
 var stu = new Student('why', 18, ['kobe'], 111, 100);
 console.log(stu);
 stu.studying();
@@ -63,7 +65,7 @@ stu.eating();
 
 ## 闭包
 
-我理解的闭包，实际上就是**能够访问**除了本身作用域以外的**其他作用域**的**函数**。
+我理解的闭包，就是**能够访问**除了本身作用域以外的**其他作用域**的**函数**。
 
 两大作用：
 

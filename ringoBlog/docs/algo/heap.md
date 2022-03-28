@@ -21,6 +21,8 @@
 
 - React16 中新增的调度器 `Scheduler` ，内部维护了**taskQueue**就是用小顶堆实现的，所有的任务按照过期时间，从小到大进行排列，这样 `Scheduler` 就可以只花费 O(1)复杂度找到队列中最早过期，或者说最高优先级的那个任务。
 
+- 堆排序局部性差，导致缓存命中率低
+
 ---
 
 ## 实现
@@ -141,75 +143,6 @@ console.log(findKthLargest([1, 2, 3, 4, 5, 6], 3));
 - **自上往下式堆化** ：将节点与其左右子节点比较，如果存在左右子节点大于该节点（大顶堆）或小于该节点（小顶堆），则将子节点的最大值（大顶堆）或最小值（小顶堆）与之交换
 
 **所以，自下而上式堆是调整节点与父节点（往上走），自上往下式堆化是调整节点与其左右子节点（往下走）**
-
----
-
-### 堆排序
-
-**时间复杂度**：建堆过程的时间复杂度是 `O(n)` ，排序过程的时间复杂度是 `O(nlogn)` ，整体时间复杂度是 `O(nlogn)`
-
-**空间复杂度**： `O(1)`
-
-#### 原理
-
-堆是一棵完全二叉树，它可以使用数组存储，并且堆的最值存储在根节点（i=1），所以我们可以每次取堆的根结点与堆的最后一个节点交换，此时最值放入了有效序列的最后一位，并且有效序列减 1，有效堆依然保持完全二叉树的结构，然后堆化，成为新的顶堆，重复此操作，直到有效堆的长度为 0，排序完成。
-
-完整步骤为：
-
-- 将待排序序列构成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点
-- 将其与末尾元素进行交换，此时末尾元素就是最大值
-- 然后将剩余 n-1 个元素重新构成一个堆，就会得到 n 个元素的次小值，如此反复执行，便能得到一个有序序列
-
-```js
-// 原地建堆
-// items: 原始序列
-// heapSize: 初始有效序列长度
-function buildHeap(items, heapSize) {
-  // 从最后一个非叶子节点开始，自上而下式堆化
-  for (let i = Math.floor(heapSize / 2); i >= 1; --i) {
-    heapify(items, heapSize, i);
-  }
-}
-function heapify(items, heapSize, i) {
-  // 自上而下式堆化
-  while (true) {
-    var minIndex = i;
-    if (2 * i <= heapSize && items[i] > items[i * 2]) {
-      minIndex = i * 2;
-    }
-    if (2 * i + 1 <= heapSize && items[minIndex] > items[i * 2 + 1]) {
-      minIndex = i * 2 + 1;
-    }
-    if (minIndex === i) break;
-    swap(items, i, minIndex); // 交换
-    i = minIndex;
-  }
-}
-function swap(items, i, j) {
-  let temp = items[i];
-  items[i] = items[j];
-  items[j] = temp;
-}
-
-// 测试
-var items = [, 5, 2, 3, 4, 1];
-// 因为 items[0] 不存储数据
-// 所以：heapSize = items.length - 1
-buildHeap(items, items.length - 1);
-console.log(items);
-// [empty, 1, 2, 3, 4, 5]
-```
-
----
-
-## 复杂性对比
-
-| 名称     | 最好    | 平均           | 最坏       | 内存   | 稳定性 |
-| -------- | ------- | -------------- | ---------- | ------ | ------ |
-| 归并排序 | nlog(n) | nlog(n)        | nlog(n)    | n      | Yes    |
-| 快速排序 | nlog(n) | nlog(n)        | n2         | log(n) | No     |
-| 希尔排序 | nlog(n) | 取决于差距序列 | n(log(n))2 | 1      | No     |
-| 堆排序   | nlog(n) | nlog(n)        | nlog(n)    | 1      | No     |
 
 ---
 

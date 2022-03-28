@@ -1,9 +1,65 @@
 # src 和 href 的区别
 
-总结：
+## href
 
-- (link)遇到 href，页面会并行加载后续内容；
-- (script)而 src 则不同，浏览器需要加载完毕 src 的内容才会继续往下走。href 用于建立当前页面与引用资源之间的关系（链接两者），而 src 则会替换当前标签。
+（常见于 link 标签）
+
+遇到 href，页面会并行加载后续内容。
+
+href 用于建立当前页面与引用资源之间的关系（链接两者）。
+
+## src
+
+（常见于 script、img 标签）
+
+浏览器需要下载完 src 的内容才会继续往下解析。
+
+通过 src 下载的内容会替换当前标签。
+
+## data-\*自定义属性
+
+使用 attribute 方法存取 data-\* 自定义属性的值非常方便：
+
+```js
+var div = document.getElementById('div1');
+
+//设置自定义的值
+div.setAttribute('data-id', 'myId');
+div.setAttribute('data-class', 'myClass');
+div.setAttribute('data-id-and-class', 'Hello');
+
+//获取自定义的值
+var myId = div.getAttribute('data-id');
+var myClass = div.getAttribute('data-class');
+var my = div.getAttribute('data-id-and-class');
+
+console.log(myId); //myId
+console.log(myClass); //myClass
+console.log(my); //Hello
+```
+
+### dataset
+
+通过访问一个元素的`dataset`属性来存取`data-*`自定义属性的值。
+
+这个`dataset`属性是 [HTML5 JavaScript API](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/data-*) 的一部分，用来返回一个所有选择元素的`data-*`属性的`DOMStringMap`对象。
+
+使用这种方法时，不是使用完整的属性名，如`data-id`来存取数据，应该去掉`data-`前缀。
+
+```js
+img.dataset.src = 'www.baidu.com';
+img.dataset.id = 12138;
+```
+
+还有一点特别注意的是：`data-`属性名如果包含了连字符，例如 `data-id-and-class`，连字符将被去掉，并转换为驼峰式的命名，前面的属性应该写成`idAndClass`。
+
+如果你想删掉一个`data-`属性，可以这么做：
+
+```js
+delete div.dataset.id;
+```
+
+## 总结
 
 1. 浏览器识别 href 引用的文档并对该文档进行下载，同时不会停止当前文档的处理，**「这也是建议用 link 方式引入 css 而不用 import 的原因」**
 

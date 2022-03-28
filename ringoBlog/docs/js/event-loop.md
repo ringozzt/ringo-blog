@@ -26,11 +26,90 @@ JDK（Java Development Kit，Java 开发工具包）包含了 JRE、编译器 ja
 
 ## JS 执行环境/Runtime
 
-浏览器、Node、Ringo(基于 JVM 的 JavaScript 平台 )
+浏览器、NodeJS、RingoJS(基于 JVM 的 JavaScript 平台 )
 
 事件循环就属于 Runtime 的执行机制
 
-## 异步非阻塞 IO
+## Event Loop
+
+在浏览器和 Node 中 Event Loop 其实是不同的。
+
+### 浏览器中的事件循环
+
+浏览器端事件循环中的异步队列有两种：macro（宏任务）队列和 micro（微任务）队列。
+
+**宏任务队列可以有多个，微任务队列只有一个**。
+
+- 常见的 macro-task 比如：setTimeout、setInterval、script（整体代码）、 I/O 操作、UI 渲染等。
+- 常见的 micro-task 比如: new Promise().then(回调)、MutationObserver(html5 新特性) 等。
+
+#### Event Loop 过程：
+
+1. **当某个宏任务执行完后,会查看是否有微任务队列。**
+2. **如果有，先执行微任务队列中的所有任务，如果没有，会读取宏任务队列中排在最前的任务。**
+3. **执行宏任务的过程中，遇到微任务，依次加入微任务队列。**
+4. **栈空后，再次读取微任务队列里的任务，Loop。**
+
+### Node 中的事件循环
+
+Node 端事件循环中的异步队列也是这两种：macro（宏任务）队列和 micro（微任务）队列。
+
+- 常见的 macro-task 比如：setTimeout、setInterval、 setImmediate、script（整体代码）、 I/O 操作等。
+
+- 常见的 micro-task 比如: process.nextTick、new Promise().then(回调)等。
+
+#### node 运行过程
+
+- V8 引擎解析 JavaScript 脚本。
+- 解析后的代码，调用 Node API。
+- libuv 库负责 Node API 的执行。它将不同的任务分配给不同的线程，形成一个 Event Loop（事件循环），以异步的方式将任务的执行结果返回给 V8 引擎。
+- V8 引擎再将结果返回给用户。
+
+#### Event Loop 过程:
+
+1. 外部输入数据-->
+2. 轮询阶段(poll)-->
+3. 检查阶段(check)-->
+4. 关闭事件回调阶段(close callback)-->
+5. 定时器检测阶段(timer)-->
+6. I/O 事件回调阶段(I/O callbacks)-->
+7. 闲置阶段(idle, prepare)-->
+8. 轮询阶段（按照该顺序反复运行）...
+
+#### 6 个阶段
+
+- timers 阶段：这个阶段执行 timer（setTimeout、setInterval）的回调
+- I/O callbacks 阶段：处理一些上一轮循环中的少数未执行的 I/O 回调
+- idle, prepare 阶段：仅 node 内部使用
+- poll 阶段：获取新的 I/O 事件, 适当的条件下 node 将阻塞在这里
+- check 阶段：执行 setImmediate() 的回调
+- close callbacks 阶段：执行 socket 的 close 事件回调
+
+#### setTimeout 和 setImmediate
+
+二者非常相似，区别主要在于调用时机不同。
+
+- setImmediate 设计在 poll 阶段完成时执行，即 check 阶段；
+- setTimeout 设计在 poll 阶段为空闲时，且设定时间到达后执行，但它在 timer 阶段执行
+
+#### process.nextTick
+
+这个函数其实是独立于 Event Loop 之外的，它有一个自己的队列，当每个阶段完成后，如果存在 nextTick 队列，就会清空队列中的所有回调函数，并且优先于其他 microtask 执行。
+
+#### 磁盘异步 IO 操作过程：
+
+1. 遇到异步操作
+2. 将调用封装成中间对象，交给 event-loop，然后直接返回
+3. 中间对象进入线程池等待执行
+4. 执行完成后，将数据放入事件队列，形成事件
+5. 本次循环继续执行，处理事件。拿到事件的关联函数和数据并执行
+6. 继续下一个事件，进入循环
+
+准确讲，事件驱动的系统中必然有非常多的事件，不能全部由主线程处理，会导致阻塞。
+
+所以采用多线程模拟异步 IO，引入宏任务、微任务队列概念处理事件，具体实现和 watcher 概念相关。
+
+## 概念：异步非阻塞 IO
 
 ### 什么是阻塞
 
@@ -156,23 +235,6 @@ nodejs 中的异步 I/O 的操作是通过 libuv 这个库来实现的，包含�
 
 ---
 
-## Event Loop
-
-### Node 中的磁盘 IO 异步操作：
-
-1. 遇到异步操作
-2. 将调用封装成中间对象，交给 event-loop，然后直接返回
-3. 中间对象进入线程池等待执行
-4. 执行完成后，将数据放入事件队列，形成事件
-5. 本次循环继续执行，处理事件。拿到事件的关联函数和数据并执行
-6. 继续下一个事件，进入循环
-
-准确讲，事件驱动的系统中必然有非常多的事件，不能全部由主线程处理，会导致阻塞。
-
-所以采用多线程模拟异步 IO，引入宏任务、微任务队列概念处理事件，具体实现和 watcher 概念相关。
-
----
-
 ### 感谢巨人
 
 1. [JDK、JRE](https://blog.csdn.net/weixin_40807247/article/details/83054382)
@@ -180,4 +242,5 @@ nodejs 中的异步 I/O 的操作是通过 libuv 这个库来实现的，包含�
 3. [朴灵评注：JavaScript 运行机制](http://www.360doc.com/document/14/1011/13/15077656_416048738.shtml)
 4. [Node 的异步模型](https://juejin.cn/post/7061742838391767048)
 5. [nodejs 异步 I/O 和事件驱动](https://xie.infoq.cn/article/799cc21c160256aa9f9e9f039)
-6. [深入事件循环和渲染机制](https://juejin.cn/post/6844904165462769678)
+6. [浏览器与 Node 的事件循环](https://juejin.cn/post/6844903761949753352)
+7. [深入事件循环和渲染机制](https://juejin.cn/post/6844904165462769678)
