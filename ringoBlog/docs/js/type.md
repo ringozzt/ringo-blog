@@ -96,6 +96,74 @@ console.log(arr instanceof Array); // false
 
 <img src="https://cdn.jsdelivr.net/gh/ringozzt/myPics@main/jsobj_full.jpg" alt="原型链神图" style="zoom:40%;" />
 
+## constructor
+
+实例的构造函数属性 constructor 指向构造函数本身。
+
+```js
+let arr = [];
+console.log(arr.constructor === Array); // true
+```
+
+**缺点：** 如果 arr 的 constructor 被修改，则无法做出正确判断。
+
+```js
+let arr = [];
+arr.constructor = function () {};
+console.log(arr.constructor === Array); // false
+```
+
+## ** proto **
+
+实例的 ** proto ** 指向构造函数的原型对象
+
+```js
+let arr = [];
+console.log(arr.__proto__ === Array.prototype); // true
+```
+
+**缺点：** 如果实例的原型链的被修改，则无法做出正确判断。
+
+```js
+let arr = [];
+arr.__proto__ = function () {};
+console.log(arr.__proto__ === Array.prototype); // false
+```
+
+## Object.getPrototypeOf()
+
+Object 自带的方法，获取某个对象所属的原型对象
+
+```js
+let arr = [];
+console.log(Object.getPrototypeOf(arr) === Array.prototype); // true
+```
+
+**缺点：** 如果实例的原型链的被修改，则无法做出正确判断。
+
+```js
+let arr = [];
+arr.__proto__ = function () {};
+console.log(Object.getPrototypeOf(arr) === Array.prototype); // false
+```
+
+## Array.prototype.isPrototypeOf()
+
+Array 原型对象的方法，判断其是不是某个对象的原型对象
+
+```js
+let arr = [];
+console.log(Array.prototype.isPrototypeOf(arr)); // true
+```
+
+**缺点：** 如果实例的原型链的被修改，则无法做出正确判断。
+
+```js
+let arr = [];
+arr.__proto__ = function () {};
+console.log(Array.prototype.isPrototypeOf(arr)); // false
+```
+
 ## Object.prototype.toString.call()
 
 Object 的原型对象上有一个 toString 方法，toString 方法默认被所有对象继承，返回 "`[object type]`" 字符串。但此方法经常被原型链上的同名方法覆盖，需要通过 Object.prototype.toString.call() 强行调用。
@@ -116,6 +184,23 @@ console.log(Object.prototype.toString.call(arr) === '[object Array]'); // true
 ### 核心: 原型链的向上查找
 
 所以，使用 Object.prototype.toString.call()能够**最准确地判断变量类型**。
+
+## Array.isArray()
+
+Array.isArray() 是 ES6 新增的方法，专门用于数组类型判断，原理同上。
+
+```js
+let arr = [];
+console.log(Array.isArray(arr)); // true
+```
+
+修改原型链不会对它造成任何影响。
+
+```js
+let arr = [];
+arr.__proto__ = function () {};
+console.log(Array.isArray(arr)); // true
+```
 
 ## 使用 == 自动进行类型转换
 

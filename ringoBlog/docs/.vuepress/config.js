@@ -172,6 +172,7 @@ module.exports = {
           { title: '集合', path: '/algo/set' },
           { title: '链表', path: '/algo/list-node' },
           { title: '堆', path: '/algo/heap' },
+          { title: '二分查找', path: '/algo/binary-search' },
           { title: '快速排序', path: '/algo/quick-sort' },
           { title: '插入排序', path: '/algo/insert-sort' },
           { title: '冒泡排序', path: '/algo/bubble-sort' },

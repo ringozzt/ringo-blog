@@ -285,6 +285,13 @@ new B(); // B
 
 `?:`关键字，实现同 ES6
 
+可选链和默认值：? 和 ?? ，下面这两种写法等价：
+
+```
+const res = data?.name ?? 'zzt';
+const res2 = data && data.name  || 'zzt';
+```
+
 ## 泛型
 
 > **混淆点：**

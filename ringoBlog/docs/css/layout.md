@@ -1,6 +1,6 @@
 # CSS 常用布局
 
-## 垂直居中
+## 垂直水平居中
 
 ### 单行文本、inline、inline-block 情况
 
