@@ -35,7 +35,7 @@ module.exports = {
       {
         title: 'HTML',
         path: '/html/html-detail',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: 'script和link标签', path: '/html/script' },
           { title: 'src和href属性', path: '/html/src-href' },
@@ -47,7 +47,7 @@ module.exports = {
       {
         title: 'CSS基础',
         path: '/css/layout',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '常见布局', path: '/css/layout' },
           { title: 'CSS动画', path: '/css/css3' },
@@ -59,7 +59,7 @@ module.exports = {
       {
         title: 'JavaScript',
         path: '/js/js-base',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: 'BOM', path: '/js/bom' },
           { title: 'DOM', path: '/js/dom' },
@@ -82,19 +82,19 @@ module.exports = {
       {
         title: 'TypeScript',
         path: '/ts/ts-base',
-        collapsable: false,
+        collapsable: true,
         children: [{ title: 'TypeScript 基础', path: '/ts/ts-base' }],
       },
       {
         title: '计算机网络',
         path: '/network/https',
-        collapsable: false,
+        collapsable: true,
         children: [{ title: '关于https', path: '/network/https' }],
       },
       {
         title: '浏览器',
         path: '/base/fe-cache',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '进程、线程、协程', path: '/base/process' },
           { title: '前端缓存和鉴权', path: '/base/fe-cache' },
@@ -107,7 +107,7 @@ module.exports = {
       {
         title: '工程化基础',
         path: '/project/fe-module',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '模块化基础', path: '/project/fe-module' },
           { title: '浅聊package.json', path: '/project/package.json' },
@@ -119,7 +119,7 @@ module.exports = {
       {
         title: '前端进阶',
         path: '/advance/optimize',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '长列表', path: '/advance/longlist' },
           { title: '性能优化', path: '/advance/optimize' },
@@ -129,7 +129,7 @@ module.exports = {
       {
         title: '框架',
         path: '/mvvm/diff',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '数据驱动视图', path: '/mvvm/diff' },
           { title: 'React Fiber模型', path: '/mvvm/fiber' },
@@ -147,13 +147,13 @@ module.exports = {
       {
         title: '服务端基础',
         path: '/node/koa-compose',
-        collapsable: false,
+        collapsable: true,
         children: [{ title: 'koa-中间件机制', path: '/node/koa-compose' }],
       },
       {
         title: '知识储备',
         path: '/base/git',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: 'Git备忘录', path: '/base/git' },
           { title: '函数式编程', path: '/base/functional' },
@@ -165,7 +165,7 @@ module.exports = {
       {
         title: '数据结构',
         path: '/algo/binary-tree',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '二叉树', path: '/algo/binary-tree' },
           { title: '字典', path: '/algo/map' },
@@ -188,7 +188,7 @@ module.exports = {
       {
         title: '实用工具',
         path: '/utils/caniuse',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: 'CanIUse', path: '/utils/caniuse' },
           { title: 'base64转换', path: '/utils/show-base64' },
@@ -199,7 +199,7 @@ module.exports = {
       {
         title: '日报&周报',
         path: '/daily/day20210930',
-        collapsable: false,
+        collapsable: true,
         children: [
           { title: '日报20210930', path: '/daily/day20210930' },
           { title: '周报20210930', path: '/daily/week20210930' },
