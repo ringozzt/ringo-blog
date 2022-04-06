@@ -261,24 +261,28 @@ function d() {}
 1. 函数被正常执行时 foo()，this 指向啥？
 
    ```
-   调用者。
+   globalThis
    ```
 
 2. 箭头函数的 this 指向啥？
 
    ```
+   父作用域。
    箭头函数没有原型，访问this会得到就近外层函数的this。
    ```
 
 3. this 可通过哪些方式被修改？
 
    ```
-   4种。new绑定 > 显示绑定(apply/call/bind) > 隐式绑定(obj.foo()) > 默认绑定(独立函数调用)。
+   3种： bind、call、apply。
+   其中的优先级：
+   new绑定 > 显示绑定(apply/call/bind) > 隐式绑定(obj.foo()) > 默认绑定(独立函数调用)。
    ```
 
 4. 箭头函数的 this 可被修改吗？
 
    ```
+   不可。
    箭头函数获得的this在运行时被确定，不能修改。因为本身没有可绑定的 this。
    ```
 
@@ -296,7 +300,7 @@ function d() {}
 6. bind 过的函数，还可通过 call 和 apply 修改 this 吗？
 
    ```
-   可以。
+   不可。
    ```
 
 7. 函数作为对象成员调用时，比如 foo 对象中的 bar 方法 foo.bar() 中的 this 指向啥？
@@ -308,6 +312,7 @@ function d() {}
 8. 函数或其父作用域为严格模式时，this 指向啥？
 
    ```
+   undefined。
    在严格模式下，
    全局作用域中的this指向window对象。
    全局作用域中的函数中的this等于undefined。
