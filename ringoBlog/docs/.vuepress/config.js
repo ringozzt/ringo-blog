@@ -155,12 +155,12 @@ module.exports = {
         path: '/base/git',
         collapsable: true,
         children: [
+          { title: '今日技巧', path: '/base/day-trick' },
           { title: 'Git备忘录', path: '/base/git' },
           { title: '函数式编程', path: '/base/functional' },
           { title: 'svg和canvas', path: '/base/svg-canvas' },
           { title: '云原生概念', path: '/cloud/cloud-native' },
           { title: 'Docker入门', path: '/cloud/docker' },
-          { title: '今日技巧', path: '/base/day-trick' },
         ],
       },
       {
