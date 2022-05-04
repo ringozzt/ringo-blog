@@ -136,7 +136,7 @@ module.exports = {
           { title: 'React hooks', path: '/mvvm/hooks' },
           { title: 'React 15到16', path: '/mvvm/v16' },
           { title: 'React 18', path: '/mvvm/v18' },
-          { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
+          // { title: '拒绝Index作key', path: '/mvvm/whynoindexkey' },
           { title: 'React源码学习', path: '/mvvm/react-source' },
           { title: '第一次技术分享', path: '/mvvm/share1' },
           { title: '状态管理方案', path: '/mvvm/store' },
@@ -160,6 +160,7 @@ module.exports = {
           { title: 'svg和canvas', path: '/base/svg-canvas' },
           { title: '云原生概念', path: '/cloud/cloud-native' },
           { title: 'Docker入门', path: '/cloud/docker' },
+          { title: '今日技巧', path: '/base/day-trick' },
         ],
       },
       {
