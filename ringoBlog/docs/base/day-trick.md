@@ -178,11 +178,7 @@
 
    
 
-## 2022-4-20
-
-# 今日技巧
-
-## 2022-4-19
+## 4-19
 
 1. 给一些 git 命令设置别名，可以提高效率。
 
@@ -360,7 +356,7 @@
 
    
 
-## 2022-4-20
+## 4-20
 
 1. node.js - Gulp构建无法正常工作，因为在打包机上NODE_ENV = production时未安装devDependencies。
 
@@ -404,7 +400,7 @@ task, series, parallel, src, pipe, dest, on, watch
 
    
 
-## 2022-4-21
+## 4-21
 
 1. 为什么要prepublish，先build一遍，https://www.ruanyifeng.com/blog/2016/10/npm_scripts.html
 1. 注意，`prepublish`这个钩子不仅会在`npm publish`命令之前运行，还会在`npm install`（不带任何参数）命令之前运行。
@@ -415,3 +411,29 @@ task, series, parallel, src, pipe, dest, on, watch
 1. 默认的NODE_ENV是空，也就是development；会安装deps和devDeps
 1. *npm* get registry 可以用来查询npm源
 1. 在package-lock.json中可以找到deps依赖包的关系
+
+
+
+## 4-25
+
+1. sh和bash的区别：
+
+   两者是不同的标准，bash更具有兼容性
+
+## 5-16
+
+1. npm install --prefix 可以将软件包安装到指定目录中。如：
+
+   ```bash
+   npm install --prefix ./my-app react
+   ```
+
+   上面的这个命令会将一个`react`包安装到`my-app`文件夹中。
+
+2. npm install --silent 安装过程什么都不输出
+
+3. npm install --quiet 安装过程只输出错误和警告
+
+## 5-30
+
+1. git默认是不允许提交一个空的目录到版本库上的, 可以在空的文件夹里面建立一个.gitkeep文件，然后提交去即可。 其实. gitkeep 就是一个占位符。
