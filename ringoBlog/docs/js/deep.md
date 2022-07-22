@@ -22,9 +22,6 @@ let newArr = arr;
 newArr[0] = 100;
 
 console.log(arr); //[100, 2, 3]
-```
-
-```js
 let arr = [1, 2, 3];
 let newArr = arr.slice();
 newArr[0] = 100;
@@ -79,6 +76,13 @@ console.log(arr); //[ 1, 2, { val: 1000 } ]
 
 ```js
 JSON.parse(JSON.stringify());
+// 对象中有时间类型的时候，序列化之后会变成字符串类型。
+
+// 对象中有undefined和Function类型数据的时候，序列化之后会直接丢失。
+
+// 对象中有NaN、Infinity和-Infinity的时候，序列化之后会显示null。
+
+// 对象循环引用的时候，会直接报错。
 ```
 
 估计这个 api 能覆盖大多数的应用场景，没错，谈到深拷贝，我第一个想到的也是它。但是实际上，对于某些严格的场景来说，这个方法是有巨大的坑的。问题如下：

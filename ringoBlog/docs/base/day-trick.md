@@ -419,6 +419,16 @@ task, series, parallel, src, pipe, dest, on, watch
 1. sh和bash的区别：
 
    两者是不同的标准，bash更具有兼容性
+   
+   
+
+## 5-1
+
+1. 如果这是一个受控组件的话，一般不这么做，而是组件内触发自己的事件，再调用 props 的 func，还有就是命名的话一般以  onXxxx 来
+2. modal 的场景，更合理的应该是 props 有一个 onClose 事件，在点击我知道了或者蒙层的时候，组件内调用 props.onClose，父组件再触发自身的 setShow
+3. 表单组件建议全部受控，最好理解，也好控制，有bug好排查
+
+
 
 ## 5-16
 
@@ -437,3 +447,84 @@ task, series, parallel, src, pipe, dest, on, watch
 ## 5-30
 
 1. git默认是不允许提交一个空的目录到版本库上的, 可以在空的文件夹里面建立一个.gitkeep文件，然后提交去即可。 其实. gitkeep 就是一个占位符。
+
+## 7-13
+
+1. vscode同一个仓库想开两个分支（两个分屏），可以新建一个父文件夹，再拉一份；这样就可以两个文件夹开两个分支了
+2. 跨域问题：浏览器特有的保护措施。协议、域名、端口，任一不同都会造成跨域。可以观察控制台的跨域警告来判断。
+   - Charles可以解决跨域：将请求地址写成127.0.0.1（前端地址），然后remote成真实地址，这样经过Charles的转发，就巧妙地绕过了跨域。
+3. sticky和fixed的区别：fixed脱标，需要考虑padding重叠的部分。而sticky还在文档流内。尤其是在置顶navbar场景，优先使用sticky。
+   - 复习：absolute和fixed脱标，产生新的BFC。
+
+## 小知识
+
+### 关于schema里的url query中extra字段问题
+
+```js 
+sslocal://web_view?type=fullscreen&hide_nav_bar=1&url=https%3A%2F%2Fwww.bbb.com%2Frender%2Fworld_center%2Ftemplate%2Fmain%2Findex.html%3Fhide_h5_title%3D0%26scene_id%3D3%26scene_params%3D%257B%2522you_id%2522%253A%252248888846050000601204%2522%257D%26todo_from%3Dmsg_detail
+```
+
+1. 为啥需要escape两次value再塞进去呢，因为在Charles中看到的，和在Webview中实际的window.Location是不一样的。
+2. webview中的location是parse过一遍的（大概类似于浏览器搜索框会parse一次）
+3. 所以如果server只escape一遍，就会出现url不完整的情况，因为extra中有部分字段被一起parse了。接到schema query上去了。
+4. 那么escape两遍，前端还需要处理吗？从window.Location...巴拉巴拉中拿到参数之后，这是还是有一层escape在的。
+5. 如果是get请求，则可以直接作为入参带过去；因为以koa为例，服务端框架一般都会在处理request前parse一次this.req对象。这时我们这一层escape就被解了。
+6. 如果是post，则需要decodeURIComponent(urlParams.xx)搞出真正的extra-value，然后可以JSON.parse转为对象，作为入参传入Body。
+7. 综上，传extra字段escape两遍value，前端parse（decode）一次，是url query带复杂json参数一种比较好的方式，如果你愿意还可以套娃多次、加密、哈希全整上。。。
+8. 感恩的心
+
+
+
+## 7-19
+
+1. 成银老师的几个库还是很超前的，学习依赖注入、ast
+2. 学习单一责任原则。一个组件只做一件事。
+3. 自下而上最初比较慢，但从长远来看会更快，因为它的适应性更强。你可以更容易地避免仓促的抽象，而是随着时间的推移在变化的浪潮中游走，直到正确的抽象变得明显。
+
+####  部分摘要：
+
+1. 我们的心理模型，我们对事物的思考方式，最终在很大程度上影响了我们的决定。
+2. 当我们作为一个团队建立东西时，重要的是明确我们所拥有的模型，并期望其他人拥有。因为每个人通常都有他们自己的隐含模型。
+3. **这个组件的一个责任是什么？**好的组件API设计自然遵循单一责任原则，这对组合模式很重要。我们很容易把简单的东西混为一谈。随着需求的到来和变化，保持简单的东西往往是相当困难的
+4. **什么是其状态的绝对最小但完整的表示？**这个想法是，最好从你的状态的最小但完整的真相来源开始，你可以从中衍生出变化。这很灵活，也很简单，而且可以避免常见的数据同步错误，比如更新一个状态而不更新另一个。 
+
+自上而下与自下而上，我想这好比vue和react。
+
+- 自上而下的思维模式倾向于从一开始就把自己固定在一个特定的抽象概念上，以解决眼前的问题。它是直观的。它常常被认为是构建组件的最直接的方法。它也经常导致API优化为*初始的*容易消费。
+- 与自上而下的方法相比，自下而上的方法往往不那么直观，而且最初可能会比较慢。它导致了多个较小的组件，但是其API是可重复使用的。总的复杂性分布在许多较小的单一责任组件中，而不是一个单一的单体组件。
+- 自下而上的方法可以让你在长期内更好地迭代。
+
+文章中还有一些智慧之处。
+
+> A component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller sub components.
+
+> 一个组件最好只做一件事。如果它最终发展壮大，它应该被分解成更小的子组件。
+
+
+
+
+
+## 7-20
+
+1. 打包的几种途径webpack、rollup、esbuild（仅esm），他们如何tree-shaking
+
+2. monorepo抽一个文件夹放业务组件，esm单独引入
+
+3. modal组件如何抽象，以受控的方式去改变蒙层状态，关闭的操作作为onConfirm的入参透传给用户
+
+4. 声明式：confirmModal全局方法
+
+   ``` js
+   let root = document.querySelector('#confirm-modal');
+   if (!root) {
+     root = document.createElement('div');
+     root.id = 'confirm-modal';
+     document.body.appendChild(root);
+   }
+   ```
+
+## 7-21
+
+1. 学习动作结构的定义
+
+
